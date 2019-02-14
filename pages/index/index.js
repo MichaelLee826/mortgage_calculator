@@ -1,26 +1,33 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
-const years = ["等额本金", "等额本息", "其它"]
+var duration = [];
 
 
 Page({
   data: {
     currentTab: 0,
-    years,
-    year: "贷款",
+    mortgage_options: ["等额本息", "等额本金"],
+    mortgage_duration: [],
+    index: 0,
     value: [3],
   },
 
   onLoad: function (options) {
-    
+    for (var i = 0; i < 20; i++){
+      duration[i] = (i + 1) + "年(" + (i + 1) * 12 + "期)";
+    }
+    duration[20] = "25年(300期)";
+    duration[21] = "30年(360期)";
+    this.setData({
+      mortgage_duration:duration
+    });
   },
 
-  bindChange(e) {
+  bindPickerChange(e) {
     const val = e.detail.value
     this.setData({
-      year: this.data.years[val[0]],
+      index: val
     })
   },
 
