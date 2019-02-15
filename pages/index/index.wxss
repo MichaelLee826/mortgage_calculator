@@ -34,7 +34,6 @@ page{
 swiper{
   height: 500rpx;
   text-align: center;
-  background-color: #4c79ce;
 }
 
 swiper-item{
@@ -79,4 +78,18 @@ swiper-item{
   height:  30px;
   margin-right:  10px;
   margin-left: 10px;
+}
+
+.inputview{
+  display: flex;
+  justify-content: flex-end;
+  width: 60%;
+  background-color: #FFFFFF;
+}
+
+.inputtextview{
+  display: flex;
+  justify-content: flex-end;
+  width: 40%;
+  color: #FFFFFF;
 }

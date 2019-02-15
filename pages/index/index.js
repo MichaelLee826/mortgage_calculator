@@ -1,34 +1,73 @@
 //index.js
 //获取应用实例
 const app = getApp()
-var duration = [];
+
 
 
 Page({
   data: {
-    currentTab: 0,
+    winHeight: "",                            //窗口高度
+    currentTab: 0,                            //当前的标签索引
     mortgage_options: ["等额本息", "等额本金"],
     mortgage_duration: [],
-    index: 0,
+    mortgage_ways: ["贷款金额", "住房面积"],
+    index_options: 0,
+    index_duration: 0,
+    index_ways: 0,
     value: [3],
   },
 
   onLoad: function (options) {
+    var that = this;
+    var height;       //屏幕高度
+
+    //swiper高度自适应
+    wx.getSystemInfo({
+      success: function (res) {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        height = clientHeight * rpxR - 88;    //88是swiper-tab的高度
+      }
+    });
+
+    var duration = [];
     for (var i = 0; i < 20; i++){
       duration[i] = (i + 1) + "年(" + (i + 1) * 12 + "期)";
     }
     duration[20] = "25年(300期)";
     duration[21] = "30年(360期)";
-    this.setData({
-      mortgage_duration:duration
+    
+    that.setData({
+      winHeight: height,
+      mortgage_duration: duration
     });
   },
 
+  //picker的监听器
   bindPickerChange(e) {
-    const val = e.detail.value
-    this.setData({
-      index: val
-    })
+    let id = e.currentTarget.id;
+    let val = e.detail.value;
+
+    switch (id){
+      case "picker_options":
+        this.setData({
+          index_options: val
+        });
+        break;
+
+      case "picker_duration":
+        this.setData({
+          index_duration: val
+        });
+        break;
+
+      case "picker_ways":
+        this.setData({
+          index_ways: val
+        });
+        break;
+    }
   },
 
   //滑动切换

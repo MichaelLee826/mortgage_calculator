@@ -7,27 +7,46 @@
     <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">组合贷款</view>
   </view>
 
-  <swiper current="{{currentTab}}" duration="300"  bindchange="swiperTab">
+  <swiper current="{{currentTab}}" duration="300"  bindchange="swiperTab" style="height:{{winHeight}}rpx">
     <swiper-item>
+
       <view class='block'>
         <view class='textview'>贷款方式:</view>
         <view class='block_inside'>
-          <picker bindchange='bindPickerChange' value='{{index}}' range='{{mortgage_options}}'>
-            <view class='text'>{{mortgage_options[index]}}</view>
-          </picker>
-          <image class='arrow' src="../../pics/forward-filled-100.png"></image>
-        </view>
-      </view>
-      <view class='block'>
-        <view class='textview'>贷款年限:</view>
-        <view class='block_inside'>
-          <picker bindchange='bindPickerChange' value='{{index}}' range='{{mortgage_duration}}'>
-            <view class='text'>{{mortgage_duration[index]}}</view>
+          <picker id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
+            <view class='text'>{{mortgage_options[index_options]}}</view>
           </picker>
           <image class='arrow' src="../../pics/forward-filled-100.png"></image>
         </view>
       </view>
 
+      <view class='block'>
+        <view class='textview'>贷款年限:</view>
+        <view class='block_inside'>
+          <picker id='picker_duration' bindchange='bindPickerChange' value='{{index_duration}}' range='{{mortgage_duration}}'>
+            <view class='text'>{{mortgage_duration[index_duration]}}</view>
+          </picker>
+          <image class='arrow' src="../../pics/forward-filled-100.png"></image>
+        </view>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>计算方式:</view>
+        <view class='block_inside'>
+          <picker id='picker_ways' bindchange='bindPickerChange' value='{{index_ways}}' range='{{mortgage_ways}}'>
+            <view class='text'>{{mortgage_ways[index_ways]}}</view>
+          </picker>
+          <image class='arrow' src="../../pics/forward-filled-100.png"></image>
+        </view>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>贷款金额:</view>
+        <view class='block_inside'>
+          <input class='inputview'></input>
+          <view class='inputtextview'>万元</view>
+        </view>
+      </view>
 
     </swiper-item>
 
