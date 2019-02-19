@@ -12,32 +12,32 @@
 
       <view class='block'>
         <view class='textview'>贷款方式:</view>
-        <view class='block_inside'>
-          <picker id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
+        <picker class='picker_layout' id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
+          <view class='block_inside'>
             <view class='text'>{{mortgage_options[index_options]}}</view>
-          </picker>
-          <image class='arrow' src="../../pics/forward-100.png"></image>
-        </view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
       </view>
 
       <view class='block'>
         <view class='textview'>贷款年限:</view>
-        <view class='block_inside'>
-          <picker id='picker_duration' bindchange='bindPickerChange' value='{{index_duration}}' range='{{mortgage_duration}}'>
+        <picker class='picker_layout' id='picker_duration' bindchange='bindPickerChange' value='{{index_duration}}' range='{{mortgage_duration}}'>
+          <view class='block_inside'>
             <view class='text'>{{mortgage_duration[index_duration]}}</view>
-          </picker>
-          <image class='arrow' src="../../pics/forward-100.png"></image>
-        </view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
       </view>
 
       <view class='block'>
         <view class='textview'>计算方式:</view>
-        <view class='block_inside'>
-          <picker id='picker_ways' bindchange='bindPickerChange' value='{{index_ways}}' range='{{mortgage_ways}}'>
+        <picker class='picker_layout' id='picker_ways' bindchange='bindPickerChange' value='{{index_ways}}' range='{{mortgage_ways}}'>
+          <view class='block_inside'>
             <view class='text'>{{mortgage_ways[index_ways]}}</view>
-          </picker>
-          <image class='arrow' src="../../pics/forward-100.png"></image>
-        </view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view> 
+        </picker>
       </view>
 
       <view class='block'>
@@ -50,12 +50,12 @@
 
       <view class='block'>
         <view class='textview'>利率选择:</view>
-        <view class='block_inside'>
-          <picker id='picker_interest' bindchange='bindPickerChange' value='{{index_interest}}' range='{{mortgage_interest}}'>
+        <picker class='picker_layout' id='picker_interest' bindchange='bindPickerChange' value='{{index_interest}}' range='{{mortgage_interest}}'>
+          <view class='block_inside'>
             <view class='text'>{{mortgage_interest[index_interest]}}</view>
-          </picker>
-          <image class='arrow' src="../../pics/forward-100.png"></image>
-        </view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
       </view>
 
       <view class='block'>
@@ -68,12 +68,12 @@
 
       <view class='block'>
         <view class='textview'>首次还款时间:</view>
-        <view class='block_inside'>
-          <picker id='picker_payback_time' mode='date' fields='month'>
-            <view class='text'>{{mortgage_payback_time}}</view>
-          </picker>
-          <image class='arrow' src="../../pics/forward-100.png"></image>
-        </view>
+        <picker class='picker_layout' mode='date' fields='month' bindchange='bindTimePickerchange' start='{{startDate}}' value='{{date}}'>
+          <view class='block_inside'>
+            <view class='text'>{{date}}</view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
       </view>
 
     </swiper-item>

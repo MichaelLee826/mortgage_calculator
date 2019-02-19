@@ -46,40 +46,32 @@ swiper-item{
 }
 
 .block{
-  display: flex;
+  width: 100%;
   height: 95rpx;
-  justify-content: space-around;
+  display: flex;
   align-items: center;
-  flex-wrap: nowrap;
   background-color: #FFFFFF;
   margin-bottom: 5rpx;
 }
 
 .textview{
-  display:  flex;
-  justify-content:  flex-start;
-  align-items:  center;
-  align-self:  center;
-  width:  40%;
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 40rpx;
   font-size: 12pt;
   color:  #000000;
-  padding-left: 20px;
+}
+
+.picker_layout{
+  width: 50%;
 }
 
 .block_inside{
-  width:  60%;
   display:  flex;
   justify-content: flex-end;
   align-items:  center;
-  height:  100%;
-  min-height:  10px;  
-}
-
-.block_inside_alpha{
-  width:  60%;
-  display:  flex;
-  justify-content: flex-end;
-  align-items:  center;
+  margin-right: 20rpx;
   height:  100%;
   min-height:  10px;  
 }
@@ -92,7 +84,15 @@ swiper-item{
 .arrow{
   width:  30px;
   height:  30px;
-  margin-right:  10px;
+}
+
+.block_inside_alpha{
+  width:  60%;
+  display:  flex;
+  justify-content: flex-end;
+  align-items:  center;
+  height:  100%;
+  min-height:  10px;  
 }
 
 .inputview{
@@ -108,4 +108,50 @@ swiper-item{
   width: 25%;
   font-size: 12pt;
   color: #000000;
+}
+
+
+
+
+
+
+.block_test{
+  width: 100%;
+  height: 95rpx;
+  display: flex;
+  align-items: center;
+  background-color: #FFFFFF;
+  margin-bottom: 5rpx;
+}
+
+.textview_test{
+  width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 40rpx;
+  font-size: 12pt;
+  color:  #000000;
+}
+
+.picker_layout{
+  width: 50%;
+}
+
+.block_inside_test{
+  display:  flex;
+  justify-content: flex-end;
+  align-items:  center;
+  margin-right: 20rpx;
+  height:  100%;
+  min-height:  10px;    
+}
+
+.text_test{
+  font-size: 12pt;
+  color: #000000;
+}
+
+.arrow_test{
+  width:  30px;
+  height:  30px;
 }

@@ -1,7 +1,7 @@
 //index.js
 //获取应用实例
 const app = getApp()
-
+var util = require('../../utils/util.js');
 
 
 Page({
@@ -17,12 +17,15 @@ Page({
     index_duration: 0,
     index_ways: 0,
     index_interest: 3,
+    startDate: "",
+    date: "",
     value: [3],
   },
 
   onLoad: function (options) {
     var that = this;
     var height;       //屏幕高度
+    var date;         //当期日期
 
     //swiper高度自适应
     wx.getSystemInfo({
@@ -34,14 +37,23 @@ Page({
       }
     });
 
+    //贷款年限
     var duration = [];
     for (var i = 0; i < 30; i++){
       duration[i] = (i + 1) + "年(" + (i + 1) * 12 + "期)";
     }
+
+    //当期日期
+    var currentDate = new Date();
+    date = util.formatTime(currentDate);
+    date = date.substring(0, 7);
+    date= date.replace("/", "-");
     
     that.setData({
       winHeight: height,
-      mortgage_duration: duration
+      mortgage_duration: duration,
+      startDate: date,
+      date: date,
     });
   },
 
@@ -74,6 +86,10 @@ Page({
           index_interest: val
         });
         break;
+
+      default:
+        console.log("默认");
+        break;
     }
   },
 
@@ -81,7 +97,7 @@ Page({
   bindTimePickerchange: function (e) {
     let val = e.detail.value;
     this.setData({
-      index_payback_time: val
+      date: val
     });
   },
 
