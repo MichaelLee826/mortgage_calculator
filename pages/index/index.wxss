@@ -30,8 +30,8 @@ page{
 }
 
 .active{
-    color:#F65959;
-    border-bottom: 4rpx solid #F65959;
+    color:#09bb07;
+    border-bottom: 5rpx solid #09bb07;
 }
 
 swiper{
@@ -110,48 +110,13 @@ swiper-item{
   color: #000000;
 }
 
-
-
-
-
-
-.block_test{
-  width: 100%;
-  height: 95rpx;
-  display: flex;
-  align-items: center;
-  background-color: #FFFFFF;
-  margin-bottom: 5rpx;
+.btn{
+  width: 80%;
+  margin-top: 20rpx;
 }
 
-.textview_test{
-  width: 50%;
-  display: flex;
-  justify-content: flex-start;
-  margin-left: 40rpx;
-  font-size: 12pt;
-  color:  #000000;
-}
-
-.picker_layout{
-  width: 50%;
-}
-
-.block_inside_test{
-  display:  flex;
-  justify-content: flex-end;
-  align-items:  center;
-  margin-right: 20rpx;
-  height:  100%;
-  min-height:  10px;    
-}
-
-.text_test{
-  font-size: 12pt;
-  color: #000000;
-}
-
-.arrow_test{
-  width:  30px;
-  height:  30px;
+.tips{
+  color: #576b95;
+  font-size: 11pt;
+  margin-top: 40rpx;
 }

@@ -119,5 +119,11 @@ Page({
         currentTab: e.target.dataset.current
       })
     }
+  },
+
+  toCompute: function () {
+    wx.navigateTo({
+      url: '/pages/result/result',
+    })
   }
 })

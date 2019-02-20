@@ -76,6 +76,14 @@
         </picker>
       </view>
 
+      <button class='btn' size='default' type='primary' bindtap='toCompute'>
+        开始计算
+      </button>
+
+      <view class='tips'>
+        点击查看更多信息
+      </view>
+
     </swiper-item>
 
     <swiper-item><view>公积金贷款</view></swiper-item>
