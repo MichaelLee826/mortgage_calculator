@@ -3,7 +3,6 @@
 const app = getApp()
 var util = require('../../utils/util.js');
 
-
 Page({
   data: {
     winHeight: "",                            //窗口高度
@@ -19,7 +18,12 @@ Page({
     index_interest: 3,
     startDate: "",
     date: "",
-    value: [3],
+    option: "等额本息",
+    duration: 1,
+    way: "贷款金额",
+    total: 0,
+    interest: 0.049,
+    payback_time: "",
   },
 
   onLoad: function (options) {
@@ -54,30 +58,35 @@ Page({
       mortgage_duration: duration,
       startDate: date,
       date: date,
+      payback_time: date,
     });
   },
 
   //picker的监听器
   bindPickerChange(e) {
+    let that = this;
     let id = e.currentTarget.id;
     let val = e.detail.value;
 
     switch (id){
       case "picker_options":
         this.setData({
-          index_options: val
+          index_options: val,
+          option: that.data.mortgage_options[val],
         });
         break;
 
       case "picker_duration":
         this.setData({
-          index_duration: val
+          index_duration: val,
+          duration: that.data.mortgage_duration[val],
         });
         break;
 
       case "picker_ways":
         this.setData({
-          index_ways: val
+          index_ways: val,
+          way: that.data.mortgage_ways[val],
         });
         break;
 
@@ -86,10 +95,6 @@ Page({
           index_interest: val
         });
         break;
-
-      default:
-        console.log("默认");
-        break;
     }
   },
 
@@ -97,7 +102,15 @@ Page({
   bindTimePickerchange: function (e) {
     let val = e.detail.value;
     this.setData({
-      date: val
+      date: val,
+      payback_time: val,
+    });
+  },
+
+  //输入框的监听器
+  inputTyping:function (e) {
+    this.setData({
+      total: e.detail.value
     });
   },
 
@@ -121,9 +134,37 @@ Page({
     }
   },
 
+  //计算按钮
   toCompute: function () {
+    var that = this;
+
+    if (that.data.total <= 0){
+    }
+
+
+    console.log(that.data.option);
+    console.log(that.data.duration);
+    console.log(that.data.way);
+    console.log(that.data.total);
+    console.log(that.data.interest);
+    console.log(that.data.payback_time);
+   
     wx.navigateTo({
-      url: '/pages/result/result',
+      //url: '/pages/result/result?Num=' + num + '&String=' + string
+      url: '/pages/result/result'
     })
+  },
+
+  //错误提示
+  showAlert: function (message) {
+    let alert = message + "不能为空！";
+    wx.showModal({
+      title: '提示',
+      content: alert,
+      confirmText: '好的',
+      confirmColor: '#ACB4E3',
+      showCancel: false,
+    });
+
   }
 })
