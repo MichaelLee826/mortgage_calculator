@@ -21,9 +21,11 @@ Page({
     option: "等额本息",
     duration: 1,
     way: "贷款金额",
-    total: 0,
+    total: -1,
     interest: 0.049,
     payback_time: "",
+    interest_disable: true,
+    interest_value: "",
   },
 
   onLoad: function (options) {
@@ -91,7 +93,57 @@ Page({
         break;
 
       case "picker_interest":
-        this.setData({
+        switch (val){
+          case 0:
+            that.setData({
+              interest_disable: true,
+              interest_value: 4.9 * 0.85
+            });
+            break;
+          
+          case 1:
+            that.setData({
+              interest_disable: true,
+              interest_value: 4.9 * 0.9
+            });
+            break;
+
+          case 2:
+            that.setData({
+              interest_disable: true,
+              interest_value: 4.9 * 0.95
+            });
+            break;
+          
+          case 3:
+            that.setData({
+              interest_disable: true,
+              interest_value: 4.9
+            });
+            break;
+          
+          case 4:
+            that.setData({
+              interest_disable: true,
+              interest_value: 4.9 * 1.1
+            });
+            break;
+
+          case 5:
+            that.setData({
+              interest_disable: true,
+              interest_value: 4.9 * 1.2
+            });
+            break;
+
+          case 6:
+            that.setData({
+              interest_disable: false,
+              interest_value: "自定义"
+            });
+            break;
+        }
+        that.setData({
           index_interest: val
         });
         break;
@@ -109,9 +161,18 @@ Page({
 
   //输入框的监听器
   inputTyping:function (e) {
-    this.setData({
-      total: e.detail.value
-    });
+    let that = this;
+    if (e.detail.value == ""){
+      that.setData({
+        total: -1
+      });
+    }
+    else {
+      that.setData({
+        total: e.detail.value
+      });
+    }
+    
   },
 
   //滑动切换
@@ -137,30 +198,42 @@ Page({
   //计算按钮
   toCompute: function () {
     var that = this;
+    var total = that.data.total;
+    var reg = /^((^[1-9]\d*)\.([0-9]{1,2})$)|^(^[1-9]\d*)$/;;
+    //var reg = /^[1-9]\d*$/;
 
-    if (that.data.total <= 0){
+    if (total == -1){
+      that.showAlert("请填写贷款金额！");
+    }
+    else if (total == 0){
+      that.showAlert("贷款金额不能为0！");
+    }
+    else if (!reg.test(total)){
+      that.showAlert("请填写正确格式的贷款金额！");
+    }
+    else {
+      that.showAlert("正确");
     }
 
 
-    console.log(that.data.option);
-    console.log(that.data.duration);
-    console.log(that.data.way);
-    console.log(that.data.total);
-    console.log(that.data.interest);
-    console.log(that.data.payback_time);
+    //console.log(that.data.option);
+    //console.log(that.data.duration);
+    //console.log(that.data.way);
+    //console.log(that.data.total);
+    //console.log(that.data.interest);
+    //console.log(that.data.payback_time);
    
-    wx.navigateTo({
+    //wx.navigateTo({
       //url: '/pages/result/result?Num=' + num + '&String=' + string
-      url: '/pages/result/result'
-    })
+      //url: '/pages/result/result'
+    //})
   },
 
   //错误提示
   showAlert: function (message) {
-    let alert = message + "不能为空！";
     wx.showModal({
       title: '提示',
-      content: alert,
+      content: message,
       confirmText: '好的',
       confirmColor: '#ACB4E3',
       showCancel: false,
