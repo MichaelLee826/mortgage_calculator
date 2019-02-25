@@ -43,7 +43,7 @@
       <view class='block'>
         <view class='textview'>贷款金额:</view>
         <view class='block_inside_alpha'>
-          <input class='inputview' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+          <input class='inputview' id='input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>万元</view>
         </view>
       </view>
@@ -61,7 +61,7 @@
       <view class='block'>
         <view class='textview'>贷款利率:</view>
         <view class='block_inside'>
-          <input class='inputview' placeholder='自定义利率' placeholder-style='color:#ccc' disabled='{{interest_disable}}' value='{{interest_value}}' type="digit"></input>
+          <input class='inputview' id='input_interest' placeholder='请输入自定义利率' placeholder-style='color:#ccc' disabled='{{interest_disable}}' value='{{interest_value}}' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>%</view>
         </view>
       </view>

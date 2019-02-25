@@ -10,7 +10,7 @@ Page({
     mortgage_options: ["等额本息", "等额本金"],
     mortgage_duration: [],
     mortgage_ways: ["贷款金额", "住房面积"],
-    mortgage_interest: ["基准利率8.5折", "基准利率9折", "基准利率9.5折", "基准利率(4.9%)", "基准利率1.1倍", "基准利率1.2倍", "自定义利率"],
+    mortgage_interest: ["基准利率8.5折", "基准利率9折", "基准利率9.5折", "基准利率", "基准利率1.1倍", "基准利率1.2倍", "自定义利率"],
     mortgage_payback_time: "",
     index_options: 0,
     index_duration: 0,
@@ -25,7 +25,7 @@ Page({
     interest: 0.049,
     payback_time: "",
     interest_disable: true,
-    interest_value: "",
+    interest_value: "4.90",
   },
 
   onLoad: function (options) {
@@ -94,52 +94,59 @@ Page({
 
       case "picker_interest":
         switch (val){
-          case 0:
+          case "0":
             that.setData({
               interest_disable: true,
-              interest_value: 4.9 * 0.85
+              interest: (4.9 * 0.85).toFixed(2),
+              interest_value: (4.9 * 0.85).toFixed(2)
             });
             break;
           
-          case 1:
+          case "1":
             that.setData({
               interest_disable: true,
-              interest_value: 4.9 * 0.9
+              interest: (4.9 * 0.9).toFixed(2),
+              interest_value: (4.9 * 0.9).toFixed(2)
             });
             break;
 
-          case 2:
+          case "2":
             that.setData({
               interest_disable: true,
-              interest_value: 4.9 * 0.95
+              interest: (4.9 * 0.95).toFixed(2),
+              interest_value: (4.9 * 0.95).toFixed(2)
             });
             break;
           
-          case 3:
+          case "3":
             that.setData({
               interest_disable: true,
-              interest_value: 4.9
+              interest: 4.90,
+              interest_value: 4.90.toFixed(2)
             });
             break;
           
-          case 4:
+          case "4":
             that.setData({
               interest_disable: true,
-              interest_value: 4.9 * 1.1
+              interest: (4.9 * 1.1).toFixed(2),
+              interest_value: (4.9 * 1.1).toFixed(2)
             });
             break;
 
-          case 5:
+          case "5":
             that.setData({
               interest_disable: true,
-              interest_value: 4.9 * 1.2
+              interest: (4.9 * 1.2).toFixed(2),
+              interest_value: (4.9 * 1.2).toFixed(2)
             });
             break;
 
-          case 6:
+          case "6":
             that.setData({
               interest_disable: false,
-              interest_value: "自定义"
+              interest: -1,
+              interest_value: ""
             });
             break;
         }
@@ -162,16 +169,37 @@ Page({
   //输入框的监听器
   inputTyping:function (e) {
     let that = this;
-    if (e.detail.value == ""){
-      that.setData({
-        total: -1
-      });
+    let id = e.currentTarget.id;
+
+    switch (id){
+      case "input_total":
+        if (e.detail.value == "") {
+          that.setData({
+            total: -1
+          });
+        }
+        else {
+          that.setData({
+            total: e.detail.value
+          });
+        }
+        break;
+      
+      case "input_interest":
+        if (e.detail.value == "") {
+          that.setData({
+            interest: -1
+          });
+        }
+        else {
+          that.setData({
+            interest: e.detail.value
+          });
+        }
+        break;
     }
-    else {
-      that.setData({
-        total: e.detail.value
-      });
-    }
+
+    
     
   },
 
@@ -197,11 +225,13 @@ Page({
 
   //计算按钮
   toCompute: function () {
-    var that = this;
-    var total = that.data.total;
-    var reg = /^((^[1-9]\d*)\.([0-9]{1,2})$)|^(^[1-9]\d*)$/;;
+    let that = this;
+    let total = that.data.total;
+    let interest = that.data.interest;
+    let reg = /^((^[1-9]\d*)\.([0-9]{1,5})$)|^(^[1-9]\d*)$/;    //有效数字为非0开头，小数最多为5位
     //var reg = /^[1-9]\d*$/;
 
+    //判断贷款金额是否填写正确
     if (total == -1){
       that.showAlert("请填写贷款金额！");
     }
@@ -211,10 +241,18 @@ Page({
     else if (!reg.test(total)){
       that.showAlert("请填写正确格式的贷款金额！");
     }
-    else {
-      that.showAlert("正确");
-    }
 
+    that.outPut(interest);
+    //判断自定义贷款利率是否填写正确
+    if (interest == -1){
+      that.showAlert("请填写贷款利率！");
+    }
+    else if (interest == 0){
+      that.showAlert("贷款利率不能为0！");
+    }
+    else if (!reg.test(interest)) {
+      that.showAlert("请填写正确格式的贷款利率！");
+    }
 
     //console.log(that.data.option);
     //console.log(that.data.duration);
@@ -238,6 +276,10 @@ Page({
       confirmColor: '#ACB4E3',
       showCancel: false,
     });
+  },
 
+  //控制台输出
+  outPut: function (message) {
+    console.log(message);
   }
 })
