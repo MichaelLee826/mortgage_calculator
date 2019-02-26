@@ -198,9 +198,6 @@ Page({
         }
         break;
     }
-
-    
-    
   },
 
   //滑动切换
@@ -228,8 +225,8 @@ Page({
     let that = this;
     let total = that.data.total;
     let interest = that.data.interest;
-    let reg = /^((^[1-9]\d*)\.([0-9]{1,5})$)|^(^[1-9]\d*)$/;    //有效数字为非0开头，小数最多为5位
-    //var reg = /^[1-9]\d*$/;
+    let reg_int = /^[1-9]\d*$/;               //整数：非0开头
+    let reg_float = /^\d+\.\d{0,3}$/;         //小数：小数部分最多3位
 
     //判断贷款金额是否填写正确
     if (total == -1){
@@ -238,20 +235,27 @@ Page({
     else if (total == 0){
       that.showAlert("贷款金额不能为0！");
     }
-    else if (!reg.test(total)){
+    //if判断条件的写法是根据几个测试用例推出来的
+    else if (!(reg_int.test(total) ^ reg_float.test(total))){
       that.showAlert("请填写正确格式的贷款金额！");
     }
 
-    that.outPut(interest);
     //判断自定义贷款利率是否填写正确
-    if (interest == -1){
+    else if (interest == -1){
       that.showAlert("请填写贷款利率！");
     }
     else if (interest == 0){
       that.showAlert("贷款利率不能为0！");
     }
-    else if (!reg.test(interest)) {
+    //if判断条件的写法是根据几个测试用例推出来的
+    else if (!(reg_int.test(interest) ^ reg_float.test(interest))) {
       that.showAlert("请填写正确格式的贷款利率！");
+    }
+    else{
+      wx.navigateTo({
+        //url: '/pages/result/result?Num=' + num + '&String=' + string
+        url: '/pages/result/result'
+      })
     }
 
     //console.log(that.data.option);
@@ -260,11 +264,6 @@ Page({
     //console.log(that.data.total);
     //console.log(that.data.interest);
     //console.log(that.data.payback_time);
-   
-    //wx.navigateTo({
-      //url: '/pages/result/result?Num=' + num + '&String=' + string
-      //url: '/pages/result/result'
-    //})
   },
 
   //错误提示

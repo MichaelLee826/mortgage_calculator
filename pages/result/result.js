@@ -2,6 +2,8 @@
 
 Page({
   data: {
+    winHeight: "",                            //窗口高度
+    currentTab: 0,                            //当前的标签索引
 
   },
 
@@ -9,9 +11,43 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
+    var height;       //屏幕高度
 
+    //swiper高度自适应
+    wx.getSystemInfo({
+      success: function (res) {
+        var clientHeight = res.windowHeight,
+          clientWidth = res.windowWidth,
+          rpxR = 750 / clientWidth;
+        height = clientHeight * rpxR - 88;    //88是swiper-tab的高度
+      }
+    });
+
+    that.setData({
+      winHeight: height,
+    });
   },
 
+  //滑动切换
+  swiperTab: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+  },
+
+  //点击切换
+  clickTab: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

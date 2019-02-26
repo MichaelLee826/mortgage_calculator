@@ -1,1 +1,33 @@
 /* pages/result/result.wxss */
+.swiper-tab{
+    width: 100%;
+    text-align: center;
+    height: 88rpx;
+    line-height: 88rpx;
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    background-color: #ffffff;
+}
+
+.swiper-tab-item{
+    width: 50%; 
+    font-size: 12pt;
+    color:#000000;
+}
+
+.active{
+    color:#09bb07;
+    border-bottom: 5rpx solid #09bb07;
+}
+
+swiper{
+  height: 500rpx;
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+swiper-item{
+  display: flex;
+  flex-direction: column;
+}
