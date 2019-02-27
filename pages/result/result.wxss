@@ -1,4 +1,8 @@
 /* pages/result/result.wxss */
+page{
+  height:100%;
+}
+
 .swiper-tab{
     width: 100%;
     text-align: center;
@@ -24,10 +28,115 @@
 swiper{
   height: 500rpx;
   text-align: center;
-  margin-top: 30rpx;
+  margin-top: 10rpx;
 }
 
 swiper-item{
   display: flex;
   flex-direction: column;
+}
+
+.layout1{
+  width: 97%;
+  height: 15%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background-color: #09bb07;
+}
+
+.textview1{
+  font-size: 10pt;
+  color: #ffffff;
+  align-self: flex-start;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+}
+
+.layout2{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  background-color: #09bb07;
+}
+
+.textview2{
+  font-size: 30pt;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.textview3{
+  font-size: 10pt;
+  font-weight: bold;
+  color: #ffffff;
+  margin-left: 20rpx;
+}
+
+.layout4{
+  width: 97%;
+  height: 12%;
+  display: flex;
+  align-self: center;
+  background-color: #09bb07;
+  margin-top: 5rpx;
+}
+
+.layout5{
+  width: 48%;
+  display: flex;
+  flex-direction: column;
+}
+
+.textview4{
+  font-size: 10pt;
+  color: #ffffff;
+  align-self: flex-start;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+}
+
+.layout6{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  margin-top: 15rpx;
+}
+
+.textview5{
+  font-size: 16pt;
+  color: #ffffff;
+}
+
+.textview6{
+  font-size: 10pt;
+  font-weight: bold;
+  color: #ffffff;
+  margin-left: 20rpx;
+}
+
+.divLine_vertical{
+  width: 3rpx;
+  height: 75rpx;
+  align-self: center;
+  background: #ffffff;
+}
+
+.tips{
+  display: flex;
+  justify-content: start;
+  font-size: 10pt;
+  color: #686666;
+  margin-top: 10rpx;
+  margin-left: 20rpx;
+}
+
+.btn{
+  width: 80%;
+  margin-top: 30rpx;
+  vertical-align: middle; 
+  line-height: 40px;
+  text-align: center
 }

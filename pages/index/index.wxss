@@ -112,7 +112,10 @@ swiper-item{
 
 .btn{
   width: 80%;
-  margin-top: 20rpx;
+  margin-top: 30rpx;
+  vertical-align: middle; 
+  line-height: 40px;
+  text-align: center
 }
 
 .tips{
