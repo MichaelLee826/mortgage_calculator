@@ -107,6 +107,7 @@ swiper-item{
 
 .textview5{
   font-size: 16pt;
+  font-weight: bold;
   color: #ffffff;
 }
 

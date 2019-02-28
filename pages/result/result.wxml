@@ -10,16 +10,16 @@
       <view class='layout1'>
         <view class='textview1'>每月月供：</view>
         <view class='layout2'>
-          <view class='textview2'>3000</view>
+          <view class='textview2'>{{monthPay}}</view>
           <view class='textview3'>元</view>
         </view>
       </view>
 
-      <view class='layout4'>
+	  <view class='layout4'>
         <view class='layout5'>
-          <view class='textview4'>贷款总额：</view>
+          <view class='textview4'>还款总额：</view>
           <view class='layout6'>
-            <view class='textview5'>100.00</view>
+            <view class='textview5'>{{sum}}</view>
             <view class='textview6'>万元</view>
           </view>
         </view>
@@ -30,29 +30,29 @@
         <view class='layout5'>
           <view class='textview4'>利息总额：</view>
           <view class='layout6'>
-            <view class='textview5'>200.00</view>
+            <view class='textview5'>{{interestPay}}</view>
             <view class='textview6'>万元</view>
           </view>
         </view>
       </view>
 
-      <view class='layout4'>
-        <view class='layout5'>
-          <view class='textview4'>还款总额：</view>
+		<view class='layout4'>
+		<view class='layout5'>
+          <view class='textview4'>贷款总额：</view>
           <view class='layout6'>
-            <view class='textview5'>300.00</view>
+            <view class='textview5'>{{total}}</view>
             <view class='textview6'>万元</view>
           </view>
         </view>
-
+	  
         <!-- 竖向分割线 -->
         <view class="divLine_vertical"></view>
 
         <view class='layout5'>
           <view class='textview4'>贷款年限：</view>
           <view class='layout6'>
-            <view class='textview5'>30年</view>
-            <view class='textview6'>(360期)</view>
+            <view class='textview5'>{{duration}}年</view>
+            <view class='textview6'>({{time}}期)</view>
           </view>
         </view>
       </view>

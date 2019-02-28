@@ -5,15 +5,15 @@ var util = require('../../utils/util.js');
 
 Page({
   data: {
-    winHeight: "",                            //窗口高度
-    currentTab: 0,                            //当前的标签索引
+    winHeight: "", //窗口高度
+    currentTab: 0, //当前的标签索引
     mortgage_options: ["等额本息", "等额本金"],
     mortgage_duration: [],
     mortgage_ways: ["贷款金额", "住房面积"],
     mortgage_interest: ["基准利率8.5折", "基准利率9折", "基准利率9.5折", "基准利率", "基准利率1.1倍", "基准利率1.2倍", "自定义利率"],
     mortgage_payback_time: "",
     index_options: 0,
-    index_duration: 0,
+    index_duration: 19,
     index_ways: 0,
     index_interest: 3,
     startDate: "",
@@ -22,30 +22,30 @@ Page({
     duration: 1,
     way: "贷款金额",
     total: -1,
-    interest: 0.049,
+    interest: 4.90,
     payback_time: "",
     interest_disable: true,
     interest_value: "4.90",
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     var that = this;
-    var height;       //屏幕高度
-    var date;         //当期日期
+    var height; //屏幕高度
+    var date; //当期日期
 
     //swiper高度自适应
     wx.getSystemInfo({
-      success: function (res) {
+      success: function(res) {
         var clientHeight = res.windowHeight,
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
-        height = clientHeight * rpxR - 88;    //88是swiper-tab的高度
+        height = clientHeight * rpxR - 88; //88是swiper-tab的高度
       }
     });
 
     //贷款年限
     var duration = [];
-    for (var i = 0; i < 30; i++){
+    for (var i = 0; i < 30; i++) {
       duration[i] = (i + 1) + "年(" + (i + 1) * 12 + "期)";
     }
 
@@ -53,8 +53,8 @@ Page({
     var currentDate = new Date();
     date = util.formatTime(currentDate);
     date = date.substring(0, 7);
-    date= date.replace("/", "-");
-    
+    date = date.replace("/", "-");
+
     that.setData({
       winHeight: height,
       mortgage_duration: duration,
@@ -70,7 +70,7 @@ Page({
     let id = e.currentTarget.id;
     let val = e.detail.value;
 
-    switch (id){
+    switch (id) {
       case "picker_options":
         this.setData({
           index_options: val,
@@ -93,7 +93,7 @@ Page({
         break;
 
       case "picker_interest":
-        switch (val){
+        switch (val) {
           case "0":
             that.setData({
               interest_disable: true,
@@ -101,7 +101,7 @@ Page({
               interest_value: (4.9 * 0.85).toFixed(2)
             });
             break;
-          
+
           case "1":
             that.setData({
               interest_disable: true,
@@ -117,7 +117,7 @@ Page({
               interest_value: (4.9 * 0.95).toFixed(2)
             });
             break;
-          
+
           case "3":
             that.setData({
               interest_disable: true,
@@ -125,7 +125,7 @@ Page({
               interest_value: 4.90.toFixed(2)
             });
             break;
-          
+
           case "4":
             that.setData({
               interest_disable: true,
@@ -158,7 +158,7 @@ Page({
   },
 
   //时间picker的监听器
-  bindTimePickerchange: function (e) {
+  bindTimePickerchange: function(e) {
     let val = e.detail.value;
     this.setData({
       date: val,
@@ -167,31 +167,29 @@ Page({
   },
 
   //输入框的监听器
-  inputTyping:function (e) {
+  inputTyping: function(e) {
     let that = this;
     let id = e.currentTarget.id;
 
-    switch (id){
+    switch (id) {
       case "input_total":
         if (e.detail.value == "") {
           that.setData({
             total: -1
           });
-        }
-        else {
+        } else {
           that.setData({
             total: e.detail.value
           });
         }
         break;
-      
+
       case "input_interest":
         if (e.detail.value == "") {
           that.setData({
             interest: -1
           });
-        }
-        else {
+        } else {
           that.setData({
             interest: e.detail.value
           });
@@ -201,7 +199,7 @@ Page({
   },
 
   //滑动切换
-  swiperTab: function (e) {
+  swiperTab: function(e) {
     var that = this;
     that.setData({
       currentTab: e.detail.current
@@ -209,7 +207,7 @@ Page({
   },
 
   //点击切换
-  clickTab: function (e) {
+  clickTab: function(e) {
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
       return false;
@@ -221,53 +219,55 @@ Page({
   },
 
   //计算按钮
-  toCompute: function () {
+  toCompute: function() {
     let that = this;
+
+    let option = that.data.option;
+    let duration = that.data.duration;
     let total = that.data.total;
     let interest = that.data.interest;
-    let reg_int = /^[1-9]\d*$/;               //整数：非0开头
-    let reg_float = /^\d+\.\d{0,3}$/;         //小数：小数部分最多3位
+    let payback_time = that.data.payback_time;
+
+    let reg_int = /^[1-9]\d*$/; //整数：非0开头
+    let reg_float = /^\d+\.\d{0,3}$/; //小数：小数部分最多3位
 
     //判断贷款金额是否填写正确
-    if (total == -1){
+    if (total == -1) {
       that.showAlert("请填写贷款金额！");
-    }
-    else if (total == 0){
+    } else if (total == 0) {
       that.showAlert("贷款金额不能为0！");
     }
     //if判断条件的写法是根据几个测试用例推出来的
-    else if (!(reg_int.test(total) ^ reg_float.test(total))){
+    else if (!(reg_int.test(total) ^ reg_float.test(total))) {
       that.showAlert("请填写正确格式的贷款金额！");
     }
 
     //判断自定义贷款利率是否填写正确
-    else if (interest == -1){
+    else if (interest == -1) {
       that.showAlert("请填写贷款利率！");
-    }
-    else if (interest == 0){
+    } else if (interest == 0) {
       that.showAlert("贷款利率不能为0！");
     }
     //if判断条件的写法是根据几个测试用例推出来的
     else if (!(reg_int.test(interest) ^ reg_float.test(interest))) {
       that.showAlert("请填写正确格式的贷款利率！");
-    }
-    else{
+    } else {
       wx.navigateTo({
-        //url: '/pages/result/result?Num=' + num + '&String=' + string
-        url: '/pages/result/result'
+        url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
+        //url: '/pages/result/result'
       })
     }
 
-    //console.log(that.data.option);
-    //console.log(that.data.duration);
+    //console.log(option);
+    //console.log(duration);
     //console.log(that.data.way);
-    //console.log(that.data.total);
-    //console.log(that.data.interest);
-    //console.log(that.data.payback_time);
+    //console.log(total);
+    //console.log(interest);
+    //console.log(payback_time);
   },
 
   //错误提示
-  showAlert: function (message) {
+  showAlert: function(message) {
     wx.showModal({
       title: '提示',
       content: message,
@@ -278,7 +278,7 @@ Page({
   },
 
   //控制台输出
-  outPut: function (message) {
+  outPut: function(message) {
     console.log(message);
   }
 })
