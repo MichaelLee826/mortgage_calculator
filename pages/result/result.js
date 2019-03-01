@@ -8,12 +8,11 @@ Page({
     duration: 0, //贷款年限
     total: 0, //贷款总额
     interest: 0.0, //贷款利率
-    payback_time: "2019-02", //首次还款时间
-    monthPay: 0,
-    interestPay: 0,
-    sum: 0,
+    payback_time: "", //首次还款时间
+    monthPay: 0,//月供
+    interestPay: 0,//利息总额
+    sum: 0,//还款总额
     time: 0,
-    result: [],
     dataList: [],
   },
 
@@ -66,6 +65,12 @@ Page({
     var monthInterest = [];
     var monthSum = [];
     var dataList = that.data.dataList;
+    var startYear;
+    var startMonth;
+    var year;
+    var month;
+    var date = [];
+    var dataItem = {};
 
     //万元转换为元
     mortgage = total * 10000;
@@ -89,33 +94,52 @@ Page({
     sum = sum.toFixed(2);
     interestPay = interestPay.toFixed(2);
 
+    //获得开始还款的年份
+    startYear = parseInt(payback_time.substr(0, 4), 10);
+    //获得开始还款的月份
+    startMonth = parseInt(payback_time.substr(5, 2), 10);
+
+    year = startYear;
+    month = startMonth - 1;//如果for循环i从2开始，这里就不需要减1了
+    dataItem["date"] = startYear + "年";
+    dataItem["monthCapital"] = "";
+    dataItem["monthInterest"] = "";
+    dataItem["monthSum"] = "";
+    dataList.push(dataItem);
+
     //每个月的还款详情
-    for (let i = 0; i <= time; i++) {
-      var dataItem = {};
+    for (let i = 1; i <= time; i++) {
+      dataItem = {};
 
-      //每月应还本金：贷款本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
-      monthCapital[i] = mortgage * monthRate * Math.pow((1 + monthRate), i - 1) / (Math.pow(1 + monthRate, time) - 1);
-      dataItem["monthCapital"] = monthCapital[i].toFixed(2);
+      if (month == 12) {
+        year++;
+        month = 0;
+        date[i] = year + "年";
+        dataItem["date"] = date[i];
+        dataItem["monthCapital"] = "";
+        dataItem["monthInterest"] = "";
+        dataItem["monthSum"] = "";
+        dataList.push(dataItem);
+      }
+      else {
+        month++;
+        date[i] = month + "月," + i + "期";
+        dataItem["date"] = date[i];
 
-      //每月应还利息：贷款本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
-      monthInterest[i] = mortgage * monthRate * (Math.pow(1 + monthRate, time) - Math.pow(1 + monthRate, i - 1)) / (Math.pow(1 + monthRate, time) - 1);
-      dataItem["monthInterest"] = monthInterest[i].toFixed(2);
+        //每月应还本金：贷款本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
+        monthCapital[i] = mortgage * monthRate * Math.pow((1 + monthRate), i - 1) / (Math.pow(1 + monthRate, time) - 1);
+        dataItem["monthCapital"] = "¥" + monthCapital[i].toFixed(2);
 
-      //月供：贷款本金×月利率×(1＋月利率)＾还款月数〕÷〔(1＋月利率)＾还款月数-1〕
-      monthSum[i] = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
-      dataItem["monthSum"] = monthSum[i].toFixed(2);
+        //每月应还利息：贷款本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
+        monthInterest[i] = mortgage * monthRate * (Math.pow(1 + monthRate, time) - Math.pow(1 + monthRate, i - 1)) / (Math.pow(1 + monthRate, time) - 1);
+        dataItem["monthInterest"] = "¥" + monthInterest[i].toFixed(2);
 
-      dataList.push(dataItem);
-      
-      //已还本金
-      //paidCapital = paidCapital + mortgage * montRate * Math.pow((1 + montRate), i - 1) / (Math.pow(1 + montRate, time) - 1);
+        //月供：贷款本金×月利率×(1＋月利率)＾还款月数〕÷〔(1＋月利率)＾还款月数-1〕
+        monthSum[i] = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
+        dataItem["monthSum"] = "¥" + monthSum[i].toFixed(2);
 
-      //已还利息
-      //paidInterest = paidInterest + mortgage * montRate * (Math.pow(1 + montRate, time) - Math.pow(1 + montRate, i - 1)) / (Math.pow(1 + montRate, time) - 1);
-
-      //总共已还
-      //paid = paid + mortgage * montRate * Math.pow((1 + montRate), time) / (Math.pow(1 + montRate, time) - 1);
-
+        dataList.push(dataItem);
+      }
     }
 
     that.setData({
@@ -131,22 +155,20 @@ Page({
     });
   },
 
+  //跳转到月供详情页面
+  showList: function () {
+    let that = this;
+    wx.navigateTo({
+      url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList)
+    })
+  },
+
   //滑动切换
   swiperTab: function(e) {
     var that = this;
     that.setData({
       currentTab: e.detail.current
     });
-  },
-
-  showList: function() {
-    let that = this;
-    wx.navigateTo({
-      //url: '/pages/list/list?monthCapital=' + JSON.stringify(that.data.monthCapital) + '&monthInterest=' + JSON.stringify(that.data.monthInterest) + '&monthSum=' + JSON.stringify(that.data.monthSum)
-
-      //url: '/pages/list/list?monthCapital=' + JSON.stringify(that.data.monthCapital)
-      url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList)
-    })
   },
 
   //点击切换

@@ -6,16 +6,18 @@
     <view class="th ">月供</view>
   </view>
 
-<block wx:for="{{dataList}}" wx:key="{{index}}">
-  <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
-    <view class="td">{{item.monthCapital}}</view>
-    <view class="td">{{item.monthInterest}}</view>
-    <view class="td">{{item.monthSum}}</view>
-  </view>
-  <view class="tr" wx:else>
-    <view class="td">{{item.monthCapital}}</view>
-    <view class="td">{{item.monthInterest}}</view>
-    <view class="td">{{item.monthSum}}</view>
-  </view>
-</block>
+  <block wx:for="{{dataList}}" wx:key="{{index}}">
+    <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+      <view class="td">{{item.date}}</view>
+      <view class="td">{{item.monthCapital}}</view>
+      <view class="td">{{item.monthInterest}}</view>
+      <view class="td">{{item.monthSum}}</view>
+    </view>
+    <view class="tr" wx:else>
+      <view class="td">{{item.date}}</view>
+      <view class="td">{{item.monthCapital}}</view>
+      <view class="td">{{item.monthInterest}}</view>
+      <view class="td">{{item.monthSum}}</view>
+    </view>
+  </block>
 </view>

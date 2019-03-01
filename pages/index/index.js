@@ -19,7 +19,7 @@ Page({
     startDate: "",
     date: "",
     option: "等额本息",
-    duration: 1,
+    duration: 20,
     way: "贷款金额",
     total: -1,
     interest: 4.90,
@@ -198,26 +198,6 @@ Page({
     }
   },
 
-  //滑动切换
-  swiperTab: function(e) {
-    var that = this;
-    that.setData({
-      currentTab: e.detail.current
-    });
-  },
-
-  //点击切换
-  clickTab: function(e) {
-    var that = this;
-    if (this.data.currentTab === e.target.dataset.current) {
-      return false;
-    } else {
-      that.setData({
-        currentTab: e.target.dataset.current
-      })
-    }
-  },
-
   //计算按钮
   toCompute: function() {
     let that = this;
@@ -254,7 +234,6 @@ Page({
     } else {
       wx.navigateTo({
         url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
-        //url: '/pages/result/result'
       })
     }
   },
@@ -270,8 +249,23 @@ Page({
     });
   },
 
-  //控制台输出
-  outPut: function(message) {
-    console.log(message);
-  }
+  //滑动切换
+  swiperTab: function (e) {
+    var that = this;
+    that.setData({
+      currentTab: e.detail.current
+    });
+  },
+
+  //点击切换
+  clickTab: function (e) {
+    var that = this;
+    if (this.data.currentTab === e.target.dataset.current) {
+      return false;
+    } else {
+      that.setData({
+        currentTab: e.target.dataset.current
+      })
+    }
+  },
 })
