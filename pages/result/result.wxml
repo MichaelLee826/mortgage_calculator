@@ -59,7 +59,7 @@
 
       <view class='tips'>以上结果仅供参考，请以实际情况为准</view>
 
-      <button class='btn' size='default' type='primary'>
+      <button class='btn' size='default' type='primary' bindtap='showList'>
         查看月供详情
       </button>
     </swiper-item>

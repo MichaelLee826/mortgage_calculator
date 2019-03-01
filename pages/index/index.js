@@ -257,13 +257,6 @@ Page({
         //url: '/pages/result/result'
       })
     }
-
-    //console.log(option);
-    //console.log(duration);
-    //console.log(that.data.way);
-    //console.log(total);
-    //console.log(interest);
-    //console.log(payback_time);
   },
 
   //错误提示

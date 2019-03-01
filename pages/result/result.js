@@ -13,6 +13,8 @@ Page({
     interestPay: 0,
     sum: 0,
     time: 0,
+    result: [],
+    dataList: [],
   },
 
   onLoad: function(options) {
@@ -56,23 +58,27 @@ Page({
     var mortgage = 0; //贷款总额（元）
     var interest = that.data.interest; //利息总额
     var payback_time = that.data.payback_time; //首次还款时间
-    var monthInterest = 0; //月利率
+    var monthRate = 0; //月利率
     var monthPay = 0; //月供
     var sum = 0; //还款总额
     var interestPay = 0; //还款利息总额
+    var monthCapital = [];
+    var monthInterest = [];
+    var monthSum = [];
+    var dataList = that.data.dataList;
 
     //万元转换为元
     mortgage = total * 10000;
 
     //年利率转换为月利率
     interest = interest / 100;
-    monthInterest = interest / 12;
+    monthRate = interest / 12;
 
     //贷款时间转换为月
     time = duration * 12;
 
     //月供（元）
-    monthPay = mortgage * monthInterest * Math.pow((1 + monthInterest), time) / (Math.pow(1 + monthInterest, time) - 1);
+    monthPay = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
     //还款总额（万元）
     sum = (monthPay * time) / 10000;
     //还款利息总额（万元）
@@ -83,6 +89,35 @@ Page({
     sum = sum.toFixed(2);
     interestPay = interestPay.toFixed(2);
 
+    //每个月的还款详情
+    for (let i = 0; i <= time; i++) {
+      var dataItem = {};
+
+      //每月应还本金：贷款本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
+      monthCapital[i] = mortgage * monthRate * Math.pow((1 + monthRate), i - 1) / (Math.pow(1 + monthRate, time) - 1);
+      dataItem["monthCapital"] = monthCapital[i].toFixed(2);
+
+      //每月应还利息：贷款本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
+      monthInterest[i] = mortgage * monthRate * (Math.pow(1 + monthRate, time) - Math.pow(1 + monthRate, i - 1)) / (Math.pow(1 + monthRate, time) - 1);
+      dataItem["monthInterest"] = monthInterest[i].toFixed(2);
+
+      //月供：贷款本金×月利率×(1＋月利率)＾还款月数〕÷〔(1＋月利率)＾还款月数-1〕
+      monthSum[i] = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
+      dataItem["monthSum"] = monthSum[i].toFixed(2);
+
+      dataList.push(dataItem);
+      
+      //已还本金
+      //paidCapital = paidCapital + mortgage * montRate * Math.pow((1 + montRate), i - 1) / (Math.pow(1 + montRate, time) - 1);
+
+      //已还利息
+      //paidInterest = paidInterest + mortgage * montRate * (Math.pow(1 + montRate, time) - Math.pow(1 + montRate, i - 1)) / (Math.pow(1 + montRate, time) - 1);
+
+      //总共已还
+      //paid = paid + mortgage * montRate * Math.pow((1 + montRate), time) / (Math.pow(1 + montRate, time) - 1);
+
+    }
+
     that.setData({
       monthPay: monthPay,
       sum: sum,
@@ -90,6 +125,9 @@ Page({
       total: total,
       duration: duration,
       time: time,
+      //monthCapital: monthCapital,
+      //monthInterest: monthInterest,
+      //monthSum: monthSum,
     });
   },
 
@@ -99,6 +137,16 @@ Page({
     that.setData({
       currentTab: e.detail.current
     });
+  },
+
+  showList: function() {
+    let that = this;
+    wx.navigateTo({
+      //url: '/pages/list/list?monthCapital=' + JSON.stringify(that.data.monthCapital) + '&monthInterest=' + JSON.stringify(that.data.monthInterest) + '&monthSum=' + JSON.stringify(that.data.monthSum)
+
+      //url: '/pages/list/list?monthCapital=' + JSON.stringify(that.data.monthCapital)
+      url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList)
+    })
   },
 
   //点击切换
