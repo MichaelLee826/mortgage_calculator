@@ -2,7 +2,7 @@
 
 Page({
   data: {
-    dataList: [],
+    dataList_typeOne: [],
     scroll_height: 0,
   },
 
@@ -11,7 +11,7 @@ Page({
     var windowWidth = wx.getSystemInfoSync().windowWidth // 屏幕的宽度
 
     var that = this;
-    var dataList = JSON.parse(options.dataList); 
+    var dataList_typeOne = JSON.parse(options.dataList_typeOne); 
 
     //更换标题栏
     wx.setNavigationBarTitle({
@@ -19,7 +19,7 @@ Page({
     })
 
     that.setData({
-      dataList: dataList,
+      dataList_typeOne: dataList_typeOne,
       scroll_height: windowHeight * 750 / windowWidth - 100,
     });
   },

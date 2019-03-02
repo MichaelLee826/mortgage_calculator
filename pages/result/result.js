@@ -9,11 +9,11 @@ Page({
     total: 0, //贷款总额
     interest: 0.0, //贷款利率
     payback_time: "", //首次还款时间
-    monthPay: 0,//月供
-    interestPay: 0,//利息总额
-    sum: 0,//还款总额
+    monthPay_typeOne: 0, //月供
+    interestPay_typeOne: 0, //利息总额
+    sum_typeOne: 0, //还款总额
     time: 0,
-    dataList: [],
+    dataList_typeOne: [],
   },
 
   onLoad: function(options) {
@@ -55,16 +55,20 @@ Page({
     var time = 0; //贷款月数
     var total = that.data.total; //贷款总额（万元）
     var mortgage = 0; //贷款总额（元）
-    var interest = that.data.interest; //利息总额
+    var interest = that.data.interest; //贷款利率
     var payback_time = that.data.payback_time; //首次还款时间
     var monthRate = 0; //月利率
-    var monthPay = 0; //月供
-    var sum = 0; //还款总额
-    var interestPay = 0; //还款利息总额
+
+    var monthPay_typeOne = 0; //月供
+    var sum_typeOne = 0; //还款总额
+    var interestPay_typeOne = 0; //还款利息总额
+
     var monthCapital = [];
     var monthInterest = [];
     var monthSum = [];
-    var dataList = that.data.dataList;
+
+    var dataList_typeOne = that.data.dataList_typeOne;
+
     var startYear;
     var startMonth;
     var year;
@@ -82,84 +86,90 @@ Page({
     //贷款时间转换为月
     time = duration * 12;
 
-    //月供（元）
-    monthPay = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
-    //还款总额（万元）
-    sum = (monthPay * time) / 10000;
-    //还款利息总额（万元）
-    interestPay = (monthPay * time - mortgage) / 10000;
-
-    //保留两位小数
-    monthPay = monthPay.toFixed(2);
-    sum = sum.toFixed(2);
-    interestPay = interestPay.toFixed(2);
-
     //获得开始还款的年份
     startYear = parseInt(payback_time.substr(0, 4), 10);
     //获得开始还款的月份
     startMonth = parseInt(payback_time.substr(5, 2), 10);
 
     year = startYear;
-    month = startMonth - 1;//如果for循环i从2开始，这里就不需要减1了
+    month = startMonth - 1; //如果for循环i从2开始，这里就不需要减1了
     dataItem["date"] = startYear + "年";
     dataItem["monthCapital"] = "";
     dataItem["monthInterest"] = "";
     dataItem["monthSum"] = "";
-    dataList.push(dataItem);
+    dataList_typeOne.push(dataItem);
 
-    //每个月的还款详情
-    for (let i = 1; i <= time; i++) {
-      dataItem = {};
+    if (option == "等额本息") {
+      console.log("hello");
+      //月供（元）
+      monthPay_typeOne = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
+      //还款总额（万元）
+      sum_typeOne = (monthPay_typeOne * time) / 10000;
+      //还款利息总额（万元）
+      interestPay_typeOne = (monthPay_typeOne * time - mortgage) / 10000;
 
-      if (month == 12) {
-        year++;
-        month = 0;
-        date[i] = year + "年";
-        dataItem["date"] = date[i];
-        dataItem["monthCapital"] = "";
-        dataItem["monthInterest"] = "";
-        dataItem["monthSum"] = "";
-        dataList.push(dataItem);
+      //保留两位小数
+      monthPay_typeOne = monthPay_typeOne.toFixed(2);
+      sum_typeOne = sum_typeOne.toFixed(2);
+      interestPay_typeOne = interestPay_typeOne.toFixed(2);
+
+      //每个月的还款详情
+      for (let i = 1; i <= time; i++) {
+        dataItem = {};
+
+        if (month == 12) {
+          year++;
+          month = 0;
+          date[i] = year + "年";
+          dataItem["date"] = date[i];
+          dataItem["monthCapital"] = "";
+          dataItem["monthInterest"] = "";
+          dataItem["monthSum"] = "";
+          dataList_typeOne.push(dataItem);
+        } else {
+          month++;
+          date[i] = month + "月," + i + "期";
+          dataItem["date"] = date[i];
+
+          //每月应还本金：贷款本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
+          monthCapital[i] = mortgage * monthRate * Math.pow((1 + monthRate), i - 1) / (Math.pow(1 + monthRate, time) - 1);
+          dataItem["monthCapital"] = "¥" + monthCapital[i].toFixed(2);
+
+          //每月应还利息：贷款本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
+          monthInterest[i] = mortgage * monthRate * (Math.pow(1 + monthRate, time) - Math.pow(1 + monthRate, i - 1)) / (Math.pow(1 + monthRate, time) - 1);
+          dataItem["monthInterest"] = "¥" + monthInterest[i].toFixed(2);
+
+          //月供：贷款本金×月利率×(1＋月利率)＾还款月数〕÷〔(1＋月利率)＾还款月数-1〕
+          monthSum[i] = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
+          dataItem["monthSum"] = "¥" + monthSum[i].toFixed(2);
+
+          dataList_typeOne.push(dataItem);
+        }
       }
-      else {
-        month++;
-        date[i] = month + "月," + i + "期";
-        dataItem["date"] = date[i];
-
-        //每月应还本金：贷款本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
-        monthCapital[i] = mortgage * monthRate * Math.pow((1 + monthRate), i - 1) / (Math.pow(1 + monthRate, time) - 1);
-        dataItem["monthCapital"] = "¥" + monthCapital[i].toFixed(2);
-
-        //每月应还利息：贷款本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
-        monthInterest[i] = mortgage * monthRate * (Math.pow(1 + monthRate, time) - Math.pow(1 + monthRate, i - 1)) / (Math.pow(1 + monthRate, time) - 1);
-        dataItem["monthInterest"] = "¥" + monthInterest[i].toFixed(2);
-
-        //月供：贷款本金×月利率×(1＋月利率)＾还款月数〕÷〔(1＋月利率)＾还款月数-1〕
-        monthSum[i] = mortgage * monthRate * Math.pow((1 + monthRate), time) / (Math.pow(1 + monthRate, time) - 1);
-        dataItem["monthSum"] = "¥" + monthSum[i].toFixed(2);
-
-        dataList.push(dataItem);
-      }
+    } else {
+      //还款总额（万元）
+      sum = time * (mortgage * montRate - montRate * (mortgage / time) * (time - 1) / 2 + mortgage / time);
+      //还款利息总额（万元）
+      interest = sum - mortgage;
     }
 
+
+
     that.setData({
-      monthPay: monthPay,
-      sum: sum,
-      interestPay: interestPay,
+      monthPay_typeOne: monthPay_typeOne,
+      sum_typeOne: sum_typeOne,
+      interestPay_typeOne: interestPay_typeOne,
       total: total,
       duration: duration,
       time: time,
-      //monthCapital: monthCapital,
-      //monthInterest: monthInterest,
-      //monthSum: monthSum,
     });
   },
 
   //跳转到月供详情页面
-  showList: function () {
+  showList: function() {
     let that = this;
     wx.navigateTo({
-      url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList)
+      url: '/pages/list/list?dataList_typeOne=' + JSON.stringify(that.data.dataList_typeOne)
     })
   },
 

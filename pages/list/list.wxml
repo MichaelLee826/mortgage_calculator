@@ -6,8 +6,8 @@
     <view class="th ">月供</view>
   </view>
 
-  <scroll-view class='scroll_view' scroll-y='true'style='height:{{scroll_height}}rpx' enable-back-to-top='true'>
-    <block wx:for="{{dataList}}" wx:key="{{index}}">
+  <scroll-view class='scroll_view' scroll-y='true'style='height:{{scroll_height}}rpx' scroll-with-animation='true' enable-back-to-top='true'>
+    <block wx:for="{{dataList_typeOne}}" wx:key="{{index}}">
       <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
         <view class="td">{{item.date}}</view>
         <view class="td">{{item.monthCapital}}</view>
