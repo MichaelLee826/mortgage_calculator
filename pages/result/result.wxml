@@ -6,6 +6,7 @@
   </view>
 
   <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{winHeight}}rpx">
+    <!--等额本息-->
     <swiper-item>
       <view class='layout1'>
         <view class='textview1'>每月月供：</view>
@@ -15,7 +16,7 @@
         </view>
       </view>
 
-	  <view class='layout4'>
+      <view class='layout4'>
         <view class='layout5'>
           <view class='textview4'>还款总额：</view>
           <view class='layout6'>
@@ -36,15 +37,15 @@
         </view>
       </view>
 
-		<view class='layout4'>
-		<view class='layout5'>
+      <view class='layout4'>
+        <view class='layout5'>
           <view class='textview4'>贷款总额：</view>
           <view class='layout6'>
             <view class='textview5'>{{total}}</view>
             <view class='textview6'>万元</view>
           </view>
         </view>
-	  
+
         <!-- 竖向分割线 -->
         <view class="divLine_vertical"></view>
 
@@ -64,8 +65,63 @@
       </button>
     </swiper-item>
 
+    <!--等额本金-->
     <swiper-item>
-      <view>等额本金</view>
+      <view class='layout1'>
+        <view class='textview1'>首月月供：</view>
+        <view class='layout2'>
+          <view class='textview2'>{{monthPay_typeOne}}</view>
+          <view class='textview3'>元</view>
+        </view>
+      </view>
+
+      <view class='layout4'>
+        <view class='layout5'>
+          <view class='textview4'>还款总额：</view>
+          <view class='layout6'>
+            <view class='textview5'>{{sum_typeTwo}}</view>
+            <view class='textview6'>万元</view>
+          </view>
+        </view>
+
+        <!-- 竖向分割线 -->
+        <view class="divLine_vertical"></view>
+
+        <view class='layout5'>
+          <view class='textview4'>利息总额：</view>
+          <view class='layout6'>
+            <view class='textview5'>{{interestPay_typeTwo}}</view>
+            <view class='textview6'>万元</view>
+          </view>
+        </view>
+      </view>
+
+      <view class='layout4'>
+        <view class='layout5'>
+          <view class='textview4'>贷款总额：</view>
+          <view class='layout6'>
+            <view class='textview5'>{{total}}</view>
+            <view class='textview6'>万元</view>
+          </view>
+        </view>
+
+        <!-- 竖向分割线 -->
+        <view class="divLine_vertical"></view>
+
+        <view class='layout5'>
+          <view class='textview4'>贷款年限：</view>
+          <view class='layout6'>
+            <view class='textview5'>{{duration}}年</view>
+            <view class='textview6'>({{time}}期)</view>
+          </view>
+        </view>
+      </view>
+
+      <view class='tips'>以上结果仅供参考，请以实际情况为准</view>
+
+      <button class='btn' size='default' type='primary' bindtap='showList'>
+        查看月供详情
+      </button>
     </swiper-item>
   </swiper>
 </view>
