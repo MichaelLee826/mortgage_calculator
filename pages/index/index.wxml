@@ -7,9 +7,9 @@
     <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">组合贷款</view>
   </view>
 
-  <swiper current="{{currentTab}}" duration="300"  bindchange="swiperTab" style="height:{{winHeight}}rpx">
+  <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{winHeight}}rpx">
+    <!--商业贷款-->
     <swiper-item>
-
       <view class='block'>
         <view class='textview'>贷款方式:</view>
         <picker class='picker_layout' id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
@@ -36,7 +36,82 @@
           <view class='block_inside'>
             <view class='text'>{{mortgage_ways[index_ways]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
-          </view> 
+          </view>
+        </picker>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>贷款金额:</view>
+        <view class='block_inside_alpha'>
+          <input class='inputview' id='input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+          <view class='inputtextview'>万元</view>
+        </view>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>利率选择:</view>
+        <picker class='picker_layout' id='picker_interest' bindchange='bindPickerChange' value='{{index_interest}}' range='{{mortgage_interest}}'>
+          <view class='block_inside'>
+            <view class='text'>{{mortgage_interest[index_interest]}}</view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>贷款利率:</view>
+        <view class='block_inside'>
+          <input class='inputview' id='input_interest' placeholder='请输入自定义利率' placeholder-style='color:#ccc' disabled='{{interest_disable}}' value='{{interest_value}}' bindinput="inputTyping" type="digit"></input>
+          <view class='inputtextview'>%</view>
+        </view>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>首次还款时间:</view>
+        <picker class='picker_layout' mode='date' fields='month' bindchange='bindTimePickerchange' start='{{startDate}}' value='{{date}}'>
+          <view class='block_inside'>
+            <view class='text'>{{date}}</view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
+      </view>
+      <button class='btn' size='default' type='primary' bindtap='toCompute'>
+        开始计算
+      </button>
+      <view class='tips'>
+        点击查看更多信息
+      </view>
+    </swiper-item>
+
+    <!--公积金贷款-->
+    <swiper-item>
+      <view class='block'>
+        <view class='textview'>贷款方式:</view>
+        <picker class='picker_layout' id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
+          <view class='block_inside'>
+            <view class='text'>{{mortgage_options[index_options]}}</view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>贷款年限:</view>
+        <picker class='picker_layout' id='picker_duration' bindchange='bindPickerChange' value='{{index_duration}}' range='{{mortgage_duration}}'>
+          <view class='block_inside'>
+            <view class='text'>{{mortgage_duration[index_duration]}}</view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
+        </picker>
+      </view>
+
+      <view class='block'>
+        <view class='textview'>计算方式:</view>
+        <picker class='picker_layout' id='picker_ways' bindchange='bindPickerChange' value='{{index_ways}}' range='{{mortgage_ways}}'>
+          <view class='block_inside'>
+            <view class='text'>{{mortgage_ways[index_ways]}}</view>
+            <image class='arrow' src="../../pics/forward-100.png"></image>
+          </view>
         </picker>
       </view>
 
@@ -83,10 +158,14 @@
       <view class='tips'>
         点击查看更多信息
       </view>
-
     </swiper-item>
 
-    <swiper-item><view>公积金贷款</view></swiper-item>
-    <swiper-item><view>组合贷款</view></swiper-item>
+
+
+
+
+    <swiper-item>
+      <view>组合贷款</view>
+    </swiper-item>
   </swiper>
 </view>
