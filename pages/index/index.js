@@ -95,28 +95,28 @@ Page({
     let val = e.detail.value;
 
     switch (id) {
-      case "picker_options":
+      case "commercial_picker_options":
         this.setData({
           commercial_index_options: val,
           commercial_option: that.data.mortgage_options[val],
         });
         break;
 
-      case "picker_duration":
+      case "commercial_picker_duration":
         this.setData({
           commercial_index_duration: val,
           commercial_duration: that.data.mortgage_duration[val],
         });
         break;
 
-      case "picker_ways":
+      case "commercial_picker_ways":
         this.setData({
           commercial_index_ways: val,
           commercial_way: that.data.mortgage_ways[val],
         });
         break;
 
-      case "picker_interest":
+      case "commercial_picker_interest":
         switch (val) {
           case "0":
             that.setData({
@@ -183,11 +183,25 @@ Page({
 
   //时间picker的监听器
   bindTimePickerchange: function(e) {
+    let id = e.currentTarget.id;
     let val = e.detail.value;
-    this.setData({
-      commercial_date: val,
-      commercial_payback_time: val,
-    });
+
+    switch (id) {
+      case "commercial_picker_time":
+        this.setData({
+          commercial_date: val,
+          commercial_payback_time: val,
+        });
+        break;
+
+      case "HAF_picker_time":
+        this.setData({
+          HAF_date: val,
+          HAF_payback_time: val,
+        });
+        break;
+    }
+
   },
 
   //输入框的监听器
@@ -196,7 +210,7 @@ Page({
     let id = e.currentTarget.id;
 
     switch (id) {
-      case "input_total":
+      case "commercial_input_total":
         if (e.detail.value == "") {
           that.setData({
             commercial_total: -1
@@ -208,7 +222,7 @@ Page({
         }
         break;
 
-      case "input_interest":
+      case "commercial_input_interest":
         if (e.detail.value == "") {
           that.setData({
             commercial_interest: -1
@@ -224,13 +238,26 @@ Page({
 
   //计算按钮
   toCompute: function() {
-    let that = this;
+    var that = this;
+    var option;
+    var duration;
+    var total;
+    var interest;
+    var payback_time;
 
-    let option = that.data.commercial_option;
-    let duration = that.data.commercial_duration;
-    let total = that.data.commercial_total;
-    let interest = that.data.commercial_interest;
-    let payback_time = that.data.commercial_payback_time;
+    switch (that.data.currentTab) {
+      case 0:
+        option = that.data.commercial_option;
+        duration = that.data.commercial_duration;
+        total = that.data.commercial_total;
+        interest = that.data.commercial_interest;
+        payback_time = that.data.commercial_payback_time;
+        break;
+
+      case 1:
+        break;
+    }
+
 
     let reg_int = /^[1-9]\d*$/; //整数：非0开头
     let reg_float = /^\d+\.\d{0,3}$/; //小数：小数部分最多3位
