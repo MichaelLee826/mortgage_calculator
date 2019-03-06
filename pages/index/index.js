@@ -7,25 +7,46 @@ Page({
   data: {
     winHeight: "", //窗口高度
     currentTab: 0, //当前的标签索引
+
+    //通用部分
     mortgage_options: ["等额本息", "等额本金"],
     mortgage_duration: [],
     mortgage_ways: ["贷款金额", "住房面积"],
-    mortgage_interest: ["基准利率8.5折", "基准利率9折", "基准利率9.5折", "基准利率", "基准利率1.1倍", "基准利率1.2倍", "自定义利率"],
+    mortgage_interest_commercial: ["基准利率8.5折", "基准利率9折", "基准利率9.5折", "基准利率", "基准利率1.1倍", "基准利率1.2倍", "自定义利率"],
+    mortgage_interest_HAF: ["基准利率", "基准利率1.1倍", "基准利率1.2倍", "自定义利率"],
     mortgage_payback_time: "",
-    index_options: 0,
-    index_duration: 19,
-    index_ways: 0,
-    index_interest: 3,
-    startDate: "",
-    date: "",
-    option: "等额本息",
-    duration: 20,
-    way: "贷款金额",
-    total: -1,
-    interest: 4.90,
-    payback_time: "",
-    interest_disable: true,
-    interest_value: "4.90",
+
+    //商业贷款
+    commercial_index_options: 0,
+    commercial_index_duration: 19,
+    commercial_index_ways: 0,
+    commercial_index_interest: 3,
+    commercial_startDate: "",
+    commercial_date: "",
+    commercial_option: "等额本息",
+    commercial_duration: 20,
+    commercial_way: "贷款金额",
+    commercial_total: -1,
+    commercial_interest: 4.90,
+    commercial_payback_time: "",
+    commercial_interest_disable: true,
+    commercial_interest_value: "4.90",
+
+    //公积金贷款
+    HAF_index_options: 0,
+    HAF_index_duration: 19,
+    HAF_index_ways: 0,
+    HAF_index_interest: 0,
+    HAF_startDate: "",
+    HAF_date: "",
+    HAF_option: "等额本息",
+    HAF_duration: 20,
+    HAF_way: "贷款金额",
+    HAF_total: -1,
+    HAF_interest: 3.25,
+    HAF_payback_time: "",
+    HAF_interest_disable: true,
+    HAF_interest_value: "3.25",
   },
 
   onLoad: function(options) {
@@ -58,9 +79,12 @@ Page({
     that.setData({
       winHeight: height,
       mortgage_duration: duration,
-      startDate: date,
-      date: date,
-      payback_time: date,
+      commercial_startDate: date,
+      commercial_date: date,
+      commercial_payback_time: date,
+      HAF_startDate: date,
+      HAF_date: date,
+      HAF_payback_time: date,
     });
   },
 
@@ -71,87 +95,87 @@ Page({
     let val = e.detail.value;
 
     switch (id) {
-      case "picker_options":
+      case "commercial_picker_options":
         this.setData({
-          index_options: val,
-          option: that.data.mortgage_options[val],
+          commercial_index_options: val,
+          commercial_option: that.data.mortgage_options[val],
         });
         break;
 
-      case "picker_duration":
+      case "commercial_picker_duration":
         this.setData({
-          index_duration: val,
-          duration: that.data.mortgage_duration[val],
+          commercial_index_duration: val,
+          commercial_duration: that.data.mortgage_duration[val],
         });
         break;
 
-      case "picker_ways":
+      case "commercial_picker_ways":
         this.setData({
-          index_ways: val,
-          way: that.data.mortgage_ways[val],
+          commercial_index_ways: val,
+          commercial_way: that.data.mortgage_ways[val],
         });
         break;
 
-      case "picker_interest":
+      case "commercial_picker_interest":
         switch (val) {
           case "0":
             that.setData({
-              interest_disable: true,
-              interest: (4.9 * 0.85).toFixed(2),
-              interest_value: (4.9 * 0.85).toFixed(2)
+              commercial_interest_disable: true,
+              commercial_interest: (4.9 * 0.85).toFixed(2),
+              commercial_interest_value: (4.9 * 0.85).toFixed(2)
             });
             break;
 
           case "1":
             that.setData({
-              interest_disable: true,
-              interest: (4.9 * 0.9).toFixed(2),
-              interest_value: (4.9 * 0.9).toFixed(2)
+              commercial_interest_disable: true,
+              commercial_interest: (4.9 * 0.9).toFixed(2),
+              commercial_interest_value: (4.9 * 0.9).toFixed(2)
             });
             break;
 
           case "2":
             that.setData({
-              interest_disable: true,
-              interest: (4.9 * 0.95).toFixed(2),
-              interest_value: (4.9 * 0.95).toFixed(2)
+              commercial_interest_disable: true,
+              commercial_interest: (4.9 * 0.95).toFixed(2),
+              commercial_interest_value: (4.9 * 0.95).toFixed(2)
             });
             break;
 
           case "3":
             that.setData({
-              interest_disable: true,
-              interest: 4.90,
-              interest_value: 4.90.toFixed(2)
+              commercial_interest_disable: true,
+              commercial_interest: 4.90,
+              commercial_interest_value: 4.90.toFixed(2)
             });
             break;
 
           case "4":
             that.setData({
-              interest_disable: true,
-              interest: (4.9 * 1.1).toFixed(2),
-              interest_value: (4.9 * 1.1).toFixed(2)
+              commercial_interest_disable: true,
+              commercial_interest: (4.9 * 1.1).toFixed(2),
+              commercial_interest_value: (4.9 * 1.1).toFixed(2)
             });
             break;
 
           case "5":
             that.setData({
-              interest_disable: true,
-              interest: (4.9 * 1.2).toFixed(2),
-              interest_value: (4.9 * 1.2).toFixed(2)
+              commercial_interest_disable: true,
+              commercial_interest: (4.9 * 1.2).toFixed(2),
+              commercial_interest_value: (4.9 * 1.2).toFixed(2)
             });
             break;
 
           case "6":
             that.setData({
-              interest_disable: false,
-              interest: -1,
-              interest_value: ""
+              commercial_interest_disable: false,
+              commercial_interest: -1,
+              commercial_interest_value: ""
             });
             break;
         }
         that.setData({
-          index_interest: val
+          commercial_index_interest: val
         });
         break;
     }
@@ -159,11 +183,25 @@ Page({
 
   //时间picker的监听器
   bindTimePickerchange: function(e) {
+    let id = e.currentTarget.id;
     let val = e.detail.value;
-    this.setData({
-      date: val,
-      payback_time: val,
-    });
+
+    switch (id) {
+      case "commercial_picker_time":
+        this.setData({
+          commercial_date: val,
+          commercial_payback_time: val,
+        });
+        break;
+
+      case "HAF_picker_time":
+        this.setData({
+          HAF_date: val,
+          HAF_payback_time: val,
+        });
+        break;
+    }
+
   },
 
   //输入框的监听器
@@ -172,26 +210,26 @@ Page({
     let id = e.currentTarget.id;
 
     switch (id) {
-      case "input_total":
+      case "commercial_input_total":
         if (e.detail.value == "") {
           that.setData({
-            total: -1
+            commercial_total: -1
           });
         } else {
           that.setData({
-            total: e.detail.value
+            commercial_total: e.detail.value
           });
         }
         break;
 
-      case "input_interest":
+      case "commercial_input_interest":
         if (e.detail.value == "") {
           that.setData({
-            interest: -1
+            commercial_interest: -1
           });
         } else {
           that.setData({
-            interest: e.detail.value
+            commercial_interest: e.detail.value
           });
         }
         break;
@@ -200,13 +238,26 @@ Page({
 
   //计算按钮
   toCompute: function() {
-    let that = this;
+    var that = this;
+    var option;
+    var duration;
+    var total;
+    var interest;
+    var payback_time;
 
-    let option = that.data.option;
-    let duration = that.data.duration;
-    let total = that.data.total;
-    let interest = that.data.interest;
-    let payback_time = that.data.payback_time;
+    switch (that.data.currentTab) {
+      case 0:
+        option = that.data.commercial_option;
+        duration = that.data.commercial_duration;
+        total = that.data.commercial_total;
+        interest = that.data.commercial_interest;
+        payback_time = that.data.commercial_payback_time;
+        break;
+
+      case 1:
+        break;
+    }
+
 
     let reg_int = /^[1-9]\d*$/; //整数：非0开头
     let reg_float = /^\d+\.\d{0,3}$/; //小数：小数部分最多3位
@@ -250,7 +301,7 @@ Page({
   },
 
   //滑动切换
-  swiperTab: function (e) {
+  swiperTab: function(e) {
     var that = this;
     that.setData({
       currentTab: e.detail.current
@@ -258,7 +309,7 @@ Page({
   },
 
   //点击切换
-  clickTab: function (e) {
+  clickTab: function(e) {
     var that = this;
     if (this.data.currentTab === e.target.dataset.current) {
       return false;

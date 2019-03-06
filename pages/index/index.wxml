@@ -12,9 +12,9 @@
     <swiper-item>
       <view class='block'>
         <view class='textview'>贷款方式:</view>
-        <picker class='picker_layout' id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
+        <picker class='picker_layout' id='commercial_picker_options' bindchange='bindPickerChange' value='{{commercial_index_options}}' range='{{mortgage_options}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_options[index_options]}}</view>
+            <view class='text'>{{mortgage_options[commercial_index_options]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -22,9 +22,9 @@
 
       <view class='block'>
         <view class='textview'>贷款年限:</view>
-        <picker class='picker_layout' id='picker_duration' bindchange='bindPickerChange' value='{{index_duration}}' range='{{mortgage_duration}}'>
+        <picker class='picker_layout' id='commercial_picker_duration' bindchange='bindPickerChange' value='{{commercial_index_duration}}' range='{{mortgage_duration}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_duration[index_duration]}}</view>
+            <view class='text'>{{mortgage_duration[commercial_index_duration]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -32,9 +32,9 @@
 
       <view class='block'>
         <view class='textview'>计算方式:</view>
-        <picker class='picker_layout' id='picker_ways' bindchange='bindPickerChange' value='{{index_ways}}' range='{{mortgage_ways}}'>
+        <picker class='picker_layout' id='commercial_picker_ways' bindchange='bindPickerChange' value='{{commercial_index_ways}}' range='{{mortgage_ways}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_ways[index_ways]}}</view>
+            <view class='text'>{{mortgage_ways[commercial_index_ways]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -43,16 +43,16 @@
       <view class='block'>
         <view class='textview'>贷款金额:</view>
         <view class='block_inside_alpha'>
-          <input class='inputview' id='input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+          <input class='inputview' id='commercial_input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>万元</view>
         </view>
       </view>
 
       <view class='block'>
         <view class='textview'>利率选择:</view>
-        <picker class='picker_layout' id='picker_interest' bindchange='bindPickerChange' value='{{index_interest}}' range='{{mortgage_interest}}'>
+        <picker class='picker_layout' id='commercial_picker_interest' bindchange='bindPickerChange' value='{{commercial_index_interest}}' range='{{mortgage_interest_commercial}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_interest[index_interest]}}</view>
+            <view class='text'>{{mortgage_interest_commercial[commercial_index_interest]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -61,16 +61,16 @@
       <view class='block'>
         <view class='textview'>贷款利率:</view>
         <view class='block_inside'>
-          <input class='inputview' id='input_interest' placeholder='请输入自定义利率' placeholder-style='color:#ccc' disabled='{{interest_disable}}' value='{{interest_value}}' bindinput="inputTyping" type="digit"></input>
+          <input class='inputview' id='commercial_input_interest' placeholder='请输入自定义利率' placeholder-style='color:#ccc' disabled='{{commercial_interest_disable}}' value='{{commercial_interest_value}}' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>%</view>
         </view>
       </view>
 
       <view class='block'>
         <view class='textview'>首次还款时间:</view>
-        <picker class='picker_layout' mode='date' fields='month' bindchange='bindTimePickerchange' start='{{startDate}}' value='{{date}}'>
+        <picker class='picker_layout' id='commercial_picker_time' mode='date' fields='month' bindchange='bindTimePickerchange' start='{{commercial_startDate}}' value='{{commercial_date}}'>
           <view class='block_inside'>
-            <view class='text'>{{date}}</view>
+            <view class='text'>{{commercial_date}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -87,9 +87,9 @@
     <swiper-item>
       <view class='block'>
         <view class='textview'>贷款方式:</view>
-        <picker class='picker_layout' id='picker_options' bindchange='bindPickerChange' value='{{index_options}}' range='{{mortgage_options}}'>
+        <picker class='picker_layout' id='HAF_picker_options' bindchange='bindPickerChange' value='{{HAF_index_options}}' range='{{mortgage_options}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_options[index_options]}}</view>
+            <view class='text'>{{mortgage_options[HAF_index_options]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -97,9 +97,9 @@
 
       <view class='block'>
         <view class='textview'>贷款年限:</view>
-        <picker class='picker_layout' id='picker_duration' bindchange='bindPickerChange' value='{{index_duration}}' range='{{mortgage_duration}}'>
+        <picker class='picker_layout' id='HAF_picker_duration' bindchange='bindPickerChange' value='{{HAF_index_duration}}' range='{{mortgage_duration}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_duration[index_duration]}}</view>
+            <view class='text'>{{mortgage_duration[HAF_index_duration]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -107,9 +107,9 @@
 
       <view class='block'>
         <view class='textview'>计算方式:</view>
-        <picker class='picker_layout' id='picker_ways' bindchange='bindPickerChange' value='{{index_ways}}' range='{{mortgage_ways}}'>
+        <picker class='picker_layout' id='HAF_picker_ways' bindchange='bindPickerChange' value='{{HAF_index_ways}}' range='{{mortgage_ways}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_ways[index_ways]}}</view>
+            <view class='text'>{{mortgage_ways[HAF_index_ways]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -118,16 +118,16 @@
       <view class='block'>
         <view class='textview'>贷款金额:</view>
         <view class='block_inside_alpha'>
-          <input class='inputview' id='input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+          <input class='inputview' id='HAF_input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>万元</view>
         </view>
       </view>
 
       <view class='block'>
         <view class='textview'>利率选择:</view>
-        <picker class='picker_layout' id='picker_interest' bindchange='bindPickerChange' value='{{index_interest}}' range='{{mortgage_interest}}'>
+        <picker class='picker_layout' id='HAF_picker_interest' bindchange='bindPickerChange' value='{{HAF_index_interest}}' range='{{mortgage_interest_HAF}}'>
           <view class='block_inside'>
-            <view class='text'>{{mortgage_interest[index_interest]}}</view>
+            <view class='text'>{{mortgage_interest_HAF[HAF_index_interest]}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
@@ -136,16 +136,16 @@
       <view class='block'>
         <view class='textview'>贷款利率:</view>
         <view class='block_inside'>
-          <input class='inputview' id='input_interest' placeholder='请输入自定义利率' placeholder-style='color:#ccc' disabled='{{interest_disable}}' value='{{interest_value}}' bindinput="inputTyping" type="digit"></input>
+          <input class='inputview' id='HAF_input_interest' placeholder='请输入自定义利率' placeholder-style='color:#ccc' disabled='{{HAF_interest_disable}}' value='{{HAF_interest_value}}' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>%</view>
         </view>
       </view>
 
       <view class='block'>
         <view class='textview'>首次还款时间:</view>
-        <picker class='picker_layout' mode='date' fields='month' bindchange='bindTimePickerchange' start='{{startDate}}' value='{{date}}'>
+        <picker class='picker_layout' id='HAF_picker_time' mode='date' fields='month' bindchange='bindTimePickerchange' start='{{HAF_startDate}}' value='{{HAF_date}}'>
           <view class='block_inside'>
-            <view class='text'>{{date}}</view>
+            <view class='text'>{{HAF_date}}</view>
             <image class='arrow' src="../../pics/forward-100.png"></image>
           </view>
         </picker>
