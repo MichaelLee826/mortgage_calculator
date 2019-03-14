@@ -70,9 +70,10 @@
       <view class='layout1'>
         <view class='textview1'>首月月供：</view>
         <view class='layout2'>
-          <view class='textview2'>{{monthPay_typeOne}}</view>
+          <view class='textview2'>{{monthPay_typeTwo}}</view>
           <view class='textview3'>元</view>
         </view>
+        <view class='textview7'>每月递减：{{delta}}元</view>
       </view>
 
       <view class='layout4'>

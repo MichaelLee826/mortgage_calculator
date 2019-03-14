@@ -231,6 +231,7 @@ Page({
 
       monthPay_typeTwo: monthPay_typeTwo,
       sum_typeTwo: sum_typeTwo,
+      delta: delta,
       interestPay_typeTwo: interestPay_typeTwo,
 
       total: total,
@@ -243,10 +244,18 @@ Page({
   //跳转到月供详情页面
   showList: function() {
     var that = this;
-    var option = that.data.option; //计算方式
-    wx.navigateTo({
-      url: '/pages/list/list?option=' + option + '&dataList_typeOne=' + JSON.stringify(that.data.dataList_typeOne) + '&dataList_typeTwo=' + JSON.stringify(that.data.dataList_typeTwo)
-    })
+    var currentTab = that.data.currentTab;
+    
+    if (currentTab == 0){
+      wx.navigateTo({
+        url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList_typeOne)
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList_typeTwo)
+      })
+    }
   },
 
   //滑动切换
