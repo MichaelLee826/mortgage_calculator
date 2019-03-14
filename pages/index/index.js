@@ -47,6 +47,27 @@ Page({
     HAF_payback_time: "",
     HAF_interest_disable: true,
     HAF_interest_value: "3.25",
+
+    //组合贷款
+    combination_index_options: 0,
+    combination_comm_index_duration: 19,
+    combination_HAF_index_duration: 19,
+    combination_comm_index_interest: 3,
+    combination_HAF_index_interest: 0,
+    combination_startDate: "",
+    combination_date: "",
+    combination_option: "等额本息",
+    combination_comm_duration: 20,
+    combination_HAF_duration: 20,
+    combination_comm_total: -1,
+    combination_HAF_total: -1,
+    combination_comm_interest: 4.90,
+    combination_HAF_interest: 3.25,
+    combination_payback_time: "",
+    combination_comm_interest_disable: true,
+    combination_HAF_interest_disable: true,
+    combination_comm_interest_value: "4.90",
+    combination_HAF_interest_value: "3.25",
   },
 
   onLoad: function(options) {
@@ -85,6 +106,9 @@ Page({
       HAF_startDate: date,
       HAF_date: date,
       HAF_payback_time: date,
+      combination_startDate: date,
+      combination_date: date,
+      combination_payback_time: date,
     });
   },
 
@@ -95,6 +119,7 @@ Page({
     let val = e.detail.value;
 
     switch (id) {
+      //商业贷款 贷款方式
       case "commercial_picker_options":
         this.setData({
           commercial_index_options: val,
@@ -102,6 +127,15 @@ Page({
         });
         break;
 
+        //公积金贷款 贷款方式
+      case "HAF_picker_options":
+        this.setData({
+          HAF_index_options: val,
+          HAF_option: that.data.mortgage_options[val],
+        });
+        break;
+
+        //商业贷款 贷款年限
       case "commercial_picker_duration":
         this.setData({
           commercial_index_duration: val,
@@ -109,6 +143,15 @@ Page({
         });
         break;
 
+        //公积金贷款 贷款年限
+      case "HAF_picker_duration":
+        this.setData({
+          HAF_index_duration: val,
+          HAF_duration: that.data.mortgage_duration[val],
+        });
+        break;
+
+        //商业贷款 计算方式
       case "commercial_picker_ways":
         this.setData({
           commercial_index_ways: val,
@@ -116,6 +159,15 @@ Page({
         });
         break;
 
+        //公积金贷款 计算方式
+      case "HAF_picker_ways":
+        this.setData({
+          HAF_index_ways: val,
+          HAF_way: that.data.mortgage_ways[val],
+        });
+        break;
+
+        //商业贷款 利率选择
       case "commercial_picker_interest":
         switch (val) {
           case "0":
@@ -175,7 +227,151 @@ Page({
             break;
         }
         that.setData({
-          commercial_index_interest: val
+          commercial_index_interest: val,
+        });
+        break;
+
+      //公积金贷款 利率选择
+      case "HAF_picker_interest":
+        switch (val) {
+          case "0":
+            that.setData({
+              HAF_interest_disable: true,
+              HAF_interest: 3.25,
+              HAF_interest_value: 3.25.toFixed(2)
+            });
+            break;
+
+          case "1":
+            that.setData({
+              HAF_interest_disable: true,
+              HAF_interest: (3.25 * 1.1).toFixed(2),
+              HAF_interest_value: (3.25 * 1.1).toFixed(2)
+            });
+            break;
+
+          case "2":
+            that.setData({
+              HAF_interest_disable: true,
+              HAF_interest: (3.25 * 1.2).toFixed(2),
+              HAF_interest_value: (3.25 * 1.2).toFixed(2)
+            });
+            break;
+
+          case "3":
+            that.setData({
+              HAF_interest_disable: false,
+              HAF_interest: -1,
+              HAF_interest_value: ""
+            });
+            break;
+        }
+        that.setData({
+          HAF_index_interest: val,
+        });
+        break;
+
+        //组合贷款 商业贷款利率选择
+      case "combination_comm_picker_interest":
+        switch (val) {
+          case "0":
+            that.setData({
+              combination_comm_interest_disable: true,
+              combination_comm_interest: (4.9 * 0.85).toFixed(2),
+              combination_comm_interest_value: (4.9 * 0.85).toFixed(2)
+            });
+            break;
+
+          case "1":
+            that.setData({
+              combination_comm_interest_disable: true,
+              combination_comm_interest: (4.9 * 0.9).toFixed(2),
+              combination_comm_interest_value: (4.9 * 0.9).toFixed(2)
+            });
+            break;
+
+          case "2":
+            that.setData({
+              combination_comm_interest_disable: true,
+              combination_comm_interest: (4.9 * 0.95).toFixed(2),
+              combination_comm_interest_value: (4.9 * 0.95).toFixed(2)
+            });
+            break;
+
+          case "3":
+            that.setData({
+              combination_comm_interest_disable: true,
+              combination_comml_interest: 4.90,
+              combination_comm_interest_value: 4.90.toFixed(2)
+            });
+            break;
+
+          case "4":
+            that.setData({
+              combination_comm_interest_disable: true,
+              combination_comm_interest: (4.9 * 1.1).toFixed(2),
+              combination_comm_interest_value: (4.9 * 1.1).toFixed(2)
+            });
+            break;
+
+          case "5":
+            that.setData({
+              combination_comm_interest_disable: true,
+              combination_comm_interest: (4.9 * 1.2).toFixed(2),
+              combination_comm_interest_value: (4.9 * 1.2).toFixed(2)
+            });
+            break;
+
+          case "6":
+            that.setData({
+              combination_comm_interest_disable: false,
+              combination_comm_interest: -1,
+              combination_comm_interest_value: ""
+            });
+            break;
+        }
+        that.setData({
+          combination_comm_index_interest: val,
+        });
+        break;
+
+        //组合贷款 公积金贷款利率选择
+      case "combination_HAF_picker_interest":
+        switch (val) {
+          case "0":
+            that.setData({
+              combination_HAF_interest_disable: true,
+              combination_HAF_interest: 3.25,
+              combination_HAF_interest_value: 3.25.toFixed(2)
+            });
+            break;
+
+          case "1":
+            that.setData({
+              combination_HAF_interest_disable: true,
+              combination_HAF_interest: (3.25 * 1.1).toFixed(2),
+              combination_HAF_interest_value: (3.25 * 1.1).toFixed(2)
+            });
+            break;
+
+          case "2":
+            that.setData({
+              combination_HAF_interest_disable: true,
+              combination_HAF_interest: (3.25 * 1.2).toFixed(2),
+              combination_HAF_interest_value: (3.25 * 1.2).toFixed(2)
+            });
+            break;
+
+          case "3":
+            that.setData({
+              combination_HAF_interest_disable: false,
+              combination_HAF_interest: -1,
+              combination_HAF_interest_value: ""
+            });
+            break;
+        }
+        that.setData({
+          combination_HAF_index_interest: val,
         });
         break;
     }
@@ -200,8 +396,14 @@ Page({
           HAF_payback_time: val,
         });
         break;
-    }
 
+      case "combination_picker_time":
+        this.setData({
+          combination_date: val,
+          combination_payback_time: val,
+        });
+        break;
+    }
   },
 
   //输入框的监听器
