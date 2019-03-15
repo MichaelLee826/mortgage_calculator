@@ -231,7 +231,7 @@ Page({
         });
         break;
 
-      //公积金贷款 利率选择
+        //公积金贷款 利率选择
       case "HAF_picker_interest":
         switch (val) {
           case "0":
@@ -435,6 +435,78 @@ Page({
           });
         }
         break;
+
+      case "HAF_input_total":
+        if (e.detail.value == "") {
+          that.setData({
+            HAF_total: -1
+          });
+        } else {
+          that.setData({
+            HAF_total: e.detail.value
+          });
+        }
+        break;
+
+      case "HAF_input_interest":
+        if (e.detail.value == "") {
+          that.setData({
+            HAF_interest: -1
+          });
+        } else {
+          that.setData({
+            HAF_interest: e.detail.value
+          });
+        }
+        break;
+
+      case "combination_comm_input_total":
+        if (e.detail.value == "") {
+          that.setData({
+            combination_comm_total: -1
+          });
+        } else {
+          that.setData({
+            combination_comm_total: e.detail.value
+          });
+        }
+        break;
+
+      case "combination_HAF_input_total":
+        if (e.detail.value == "") {
+          that.setData({
+            combination_HAF_total: -1
+          });
+        } else {
+          that.setData({
+            combination_HAF_total: e.detail.value
+          });
+        }
+        break;
+
+      case "combination_comm_input_interest":
+        if (e.detail.value == "") {
+          that.setData({
+            combination_comm_interest: -1
+          });
+        } else {
+          that.setData({
+            combination_comm_interest: e.detail.value
+          });
+        }
+        break;
+
+      case "combination_HAF_input_interest":
+        if (e.detail.value == "") {
+          that.setData({
+            combination_HAF_interest: -1
+          });
+        } else {
+          that.setData({
+            combination_HAF_interest: e.detail.value
+          });
+        }
+        break;
     }
   },
 
@@ -457,6 +529,19 @@ Page({
         break;
 
       case 1:
+        option = that.data.HAF_option;
+        duration = that.data.HAF_duration;
+        total = that.data.HAF_total;
+        interest = that.data.HAF_interest;
+        payback_time = that.data.HAF_payback_time;
+        break;
+
+      case 2:
+        option = that.data.combination_option;
+        duration = that.data.HAF_duration;
+        total = that.data.HAF_total;
+        interest = that.data.HAF_interest;
+        payback_time = that.data.HAF_payback_time;
         break;
     }
 
@@ -484,7 +569,15 @@ Page({
     //if判断条件的写法是根据几个测试用例推出来的
     else if (!(reg_int.test(interest) ^ reg_float.test(interest))) {
       that.showAlert("请填写正确格式的贷款利率！");
-    } else {
+    } 
+    
+    else if (currentTab == 0 || currentTab == 1){
+      wx.navigateTo({
+        url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
+      })
+    }
+
+    else {
       wx.navigateTo({
         url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
       })

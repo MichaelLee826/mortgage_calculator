@@ -1,7 +1,9 @@
 {
   "pages": [
+    "pages/result_combination/result_combination",
     "pages/index/index",
     "pages/result/result",
+    
     "pages/list/list",
     "pages/logs/logs"
   ],
