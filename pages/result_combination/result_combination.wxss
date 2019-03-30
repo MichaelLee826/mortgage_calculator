@@ -28,7 +28,7 @@ page{
 
 swiper{
   height: 500rpx;
-  text-align: center;
+  text-align: center; 
   margin-top: 10rpx;
 }
 
@@ -133,6 +133,40 @@ swiper-item{
   background: #ffffff;
 }
 
+.layout7{
+  width: 97%;
+  height: 12%;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin-top: 10rpx;
+  background-color: #09bb07;
+}
+
+.textview8{
+  font-size: 20pt;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.layout8{
+  width: 97%;
+  height: 10%;
+  display: flex;
+  align-self: center;
+  background-color: #09bb07;
+  margin-top: 5rpx;
+}
+
+.textview9{
+  font-size: 11pt;
+  display: flex;
+  align-self: flex-start;
+  color: #000000;
+  margin-top: 20rpx;
+  margin-left: 20rpx;
+}
+
 .tips{
   display: flex;
   justify-content: start;
@@ -145,7 +179,16 @@ swiper-item{
 .btn{
   width: 80%;
   margin-top: 30rpx;
+  margin-bottom: 50rpx;
   vertical-align: middle; 
   line-height: 40px;
   text-align: center
+}
+
+
+::-webkit-scrollbar
+{
+width: 0;
+height: 0;
+color: transparent;
 }

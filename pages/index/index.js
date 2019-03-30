@@ -515,8 +515,14 @@ Page({
     var that = this;
     var option;
     var duration;
+    var combination_comm_duration;
+    var combination_HAF_duration;
     var total;
+    var combination_comm_total;
+    var combination_HAF_total;
     var interest;
+    var combination_comm_interest;
+    var combination_HAF_interest;
     var payback_time;
 
     switch (that.data.currentTab) {
@@ -538,10 +544,13 @@ Page({
 
       case 2:
         option = that.data.combination_option;
-        duration = that.data.HAF_duration;
-        total = that.data.HAF_total;
-        interest = that.data.HAF_interest;
-        payback_time = that.data.HAF_payback_time;
+        combination_comm_duration = that.data.combination_comm_duration;
+        combination_HAF_duration = that.data.combination_HAF_duration;
+        combination_comm_total = that.data.combination_comm_total;
+        combination_HAF_total = that.data.combination_HAF_total;
+        combination_comm_interest = that.data.combination_comm_interest;
+        combination_HAF_interest = that.data.combination_HAF_interest;
+        payback_time = that.data.combination_payback_time;
         break;
     }
 
@@ -549,6 +558,7 @@ Page({
     let reg_int = /^[1-9]\d*$/; //整数：非0开头
     let reg_float = /^\d+\.\d{0,3}$/; //小数：小数部分最多3位
 
+    
     //判断贷款金额是否填写正确
     if (total == -1) {
       that.showAlert("请填写贷款金额！");
@@ -569,17 +579,13 @@ Page({
     //if判断条件的写法是根据几个测试用例推出来的
     else if (!(reg_int.test(interest) ^ reg_float.test(interest))) {
       that.showAlert("请填写正确格式的贷款利率！");
-    } 
-    
-    else if (currentTab == 0 || currentTab == 1){
+    } else if (that.data.currentTab == 0 || that.data.currentTab == 1) {
       wx.navigateTo({
         url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
       })
-    }
-
-    else {
+    } else {
       wx.navigateTo({
-        url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
+        url: '/pages/result/result?option=' + option + '&combination_comm_duration=' + combination_comm_duration + '&combination_comm_total=' + combination_comm_total + '&combination_comm_interest=' + combination_comm_interest + '&combination_HAF_duration=' + combination_HAF_duration + '&combination_HAF_total=' + combination_HAF_total + '&combination_HAF_interest=' + combination_HAF_interest +'&payback_time=' + payback_time
       })
     }
   },
