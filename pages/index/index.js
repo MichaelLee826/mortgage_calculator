@@ -151,6 +151,22 @@ Page({
         });
         break;
 
+      //组合贷款 商业贷款年限
+      case "combination_comm_picker_duration":
+        this.setData({
+            combination_comm_index_duration: val,
+            combination_comm_duration: that.data.mortgage_duration[val],
+        });
+        break;
+
+      //组合贷款 公积金贷款年限
+      case "combination_HAF_picker_duration":
+        this.setData({
+          combination_HAF_index_duration: val,
+          combination_HAF_duration: that.data.mortgage_duration[val],
+        });
+        break;
+
         //商业贷款 计算方式
       case "commercial_picker_ways":
         this.setData({
@@ -554,39 +570,70 @@ Page({
         break;
     }
 
-
     let reg_int = /^[1-9]\d*$/; //整数：非0开头
     let reg_float = /^\d+\.\d{0,3}$/; //小数：小数部分最多3位
 
-    
-    //判断贷款金额是否填写正确
-    if (total == -1) {
-      that.showAlert("请填写贷款金额！");
-    } else if (total == 0) {
-      that.showAlert("贷款金额不能为0！");
-    }
-    //if判断条件的写法是根据几个测试用例推出来的
-    else if (!(reg_int.test(total) ^ reg_float.test(total))) {
-      that.showAlert("请填写正确格式的贷款金额！");
+    //商业贷款和公积金贷款
+    if (that.data.currentTab == 0 || that.data.currentTab == 1) {
+      //判断贷款金额是否填写正确
+      if (total == -1) {
+        that.showAlert("请填写贷款金额！");
+      } else if (total == 0) {
+        that.showAlert("贷款金额不能为0！");
+      }
+      //if判断条件的写法是根据几个测试用例推出来的
+      else if (!(reg_int.test(total) ^ reg_float.test(total))) {
+        that.showAlert("请填写正确格式的贷款金额！");
+      }
+
+      //判断自定义贷款利率是否填写正确
+      else if (interest == -1) {
+        that.showAlert("请填写贷款利率！");
+      } else if (interest == 0) {
+        that.showAlert("贷款利率不能为0！");
+      }
+      //if判断条件的写法是根据几个测试用例推出来的
+      else if (!(reg_int.test(interest) ^ reg_float.test(interest))) {
+        that.showAlert("请填写正确格式的贷款利率！");
+      } else {
+        wx.navigateTo({
+          url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
+        })
+      }
     }
 
-    //判断自定义贷款利率是否填写正确
-    else if (interest == -1) {
-      that.showAlert("请填写贷款利率！");
-    } else if (interest == 0) {
-      that.showAlert("贷款利率不能为0！");
-    }
-    //if判断条件的写法是根据几个测试用例推出来的
-    else if (!(reg_int.test(interest) ^ reg_float.test(interest))) {
-      that.showAlert("请填写正确格式的贷款利率！");
-    } else if (that.data.currentTab == 0 || that.data.currentTab == 1) {
-      wx.navigateTo({
-        url: '/pages/result/result?option=' + option + '&duration=' + duration + '&total=' + total + '&interest=' + interest + '&payback_time=' + payback_time
-      })
-    } else {
-      wx.navigateTo({
-        url: '/pages/result/result?option=' + option + '&combination_comm_duration=' + combination_comm_duration + '&combination_comm_total=' + combination_comm_total + '&combination_comm_interest=' + combination_comm_interest + '&combination_HAF_duration=' + combination_HAF_duration + '&combination_HAF_total=' + combination_HAF_total + '&combination_HAF_interest=' + combination_HAF_interest +'&payback_time=' + payback_time
-      })
+    //组合贷款
+    else {
+      //判断贷款金额是否填写正确
+      if (combination_comm_total == -1 || combination_HAF_total == -1) {
+        that.showAlert("请填写贷款金额！");
+      } else if (combination_comm_total == 0 || combination_HAF_total == 0) {
+        that.showAlert("贷款金额不能为0！");
+      }
+      //if判断条件的写法是根据几个测试用例推出来的
+      else if (!(reg_int.test(combination_comm_total) ^ reg_float.test(combination_comm_total))) {
+        that.showAlert("请填写正确格式的贷款金额！");
+      }
+      else if (!(reg_int.test(combination_HAF_total) ^ reg_float.test(combination_HAF_total))) {
+        that.showAlert("请填写正确格式的贷款金额！");
+      }
+
+      //判断自定义贷款利率是否填写正确
+      else if (combination_comm_interest == -1 || combination_HAF_interest == -1) {
+        that.showAlert("请填写贷款利率！");
+      } else if (combination_comm_interest == 0 || combination_HAF_interest == 0) {
+        that.showAlert("贷款利率不能为0！");
+      }
+      //if判断条件的写法是根据几个测试用例推出来的
+      else if (!(reg_int.test(combination_comm_interest) ^ reg_float.test(combination_comm_interest))) {
+        that.showAlert("请填写正确格式的贷款利率！");
+      } else if (!(reg_int.test(combination_HAF_interest) ^ reg_float.test(combination_HAF_interest))) {
+        that.showAlert("请填写正确格式的贷款利率！");
+      } else {
+        wx.navigateTo({
+          url: '/pages/result_combination/result_combination?option=' + option + '&combination_comm_duration=' + combination_comm_duration + '&combination_comm_total=' + combination_comm_total + '&combination_comm_interest=' + combination_comm_interest + '&combination_HAF_duration=' + combination_HAF_duration + '&combination_HAF_total=' + combination_HAF_total + '&combination_HAF_interest=' + combination_HAF_interest + '&payback_time=' + payback_time
+        })
+      }
     }
   },
 

@@ -7,8 +7,10 @@ Page({
     scroll_height: 0,
 
     sum_typeOne: 0, //还款总额
-    total_typeOne: 0, //贷款总额
+    sum_typeTwo: 0,
+    total: 0, //贷款总额
     interestPay_typeOne: 0, //利息总额
+    interestPay_typeTwo: 0,
     payback_time: "", //首次还款时间
 
     duration_commercial: 0, //商业贷款贷款年限
@@ -36,6 +38,8 @@ Page({
     sum_typeTwo_HAF: 0, //公积金贷款等额本金还款总额
     interestPay_typeTwo_HAF: 0, ///公积金贷款等额本金利息总额
     delta_HAF: 0, //等额本金方式每月递减金额
+
+    delta: 0,
 
     dataList_typeOne_commercial: [],
     dataList_typeOne_HAF: [],
@@ -67,16 +71,16 @@ Page({
     //获得从前一页传来的数据
     that.setData({
       winHeight: height,
-      duration_commercial: combination_comm_duration,
+      duration_commercial: options.combination_comm_duration,
       total_commercial: options.combination_comm_total,
-      interest_commercial: combination_comm_interest,
+      interest_commercial: options.combination_comm_interest,
       duration_HAF: options.combination_HAF_duration,
       total_HAF: options.combination_HAF_total,
       interest_HAF: options.combination_HAF_interest,
       payback_time: options.payback_time,
     });
 
-    if (that.data.option == "等额本息") {
+    if (options.option == "等额本息") {
       that.setData({
         currentTab: 0,
       });
@@ -85,6 +89,8 @@ Page({
         currentTab: 1,
       });
     }
+
+    that.compute();
   },
 
   //计算
@@ -94,6 +100,7 @@ Page({
     var duration_HAF = parseInt(that.data.duration_HAF)
     var time_commercial = 0; //贷款月数
     var time_HAF = 0;
+    var total = that.data.total;
     var total_commercial = that.data.total_commercial; //贷款总额（万元）
     var total_HAF = that.data.total_HAF;
     var mortgage_commercial = 0; //贷款总额（元）
@@ -118,18 +125,27 @@ Page({
     //等额本息
     var monthPay_typeOne_commercial = 0; //月供
     var monthPay_typeOne_HAF = 0;
+    var sum_typeOne = 0;
     var sum_typeOne_commercial = 0; //还款总额
     var sum_typeOne_HAF = 0;
+    var interestPay_typeOne = 0;
     var interestPay_typeOne_commercial = 0; //还款利息总额
     var interestPay_typeOne_HAF = 0;
-    var dataList_typeOne_commercial = that.data.dataList_typeOne;
-    var dataList_typeOne_HAF = that.data.dataList_typeOne;
+    var dataList_typeOne_commercial = that.data.dataList_typeOne_commercial;
+    var dataList_typeOne_HAF = that.data.dataList_typeOne_HAF;
 
     //等额本金
-    var monthPay_typeTwo = 0; //首月月供
-    var sum_typeTwo = 0; //还款总额
-    var interestPay_typeTwo = 0; //还款利息总额
-    var dataList_typeTwo = that.data.dataList_typeTwo;
+    var monthPay_typeTwo_commercial = 0; //首月月供
+    var monthPay_typeTwo_HAF = 0;
+    var sum_typeTwo = 0;
+    var sum_typeTwo_commercial = 0; //还款总额
+    var sum_typeTwo_HAF = 0;
+    var interestPay_typeTwo = 0;
+    var interestPay_typeTwo_commercial = 0; //还款利息总额
+    var interestPay_typeTwo_HAF = 0;
+    var dataList_typeTwo_commercial = that.data.dataList_typeTwo_commercial;
+    var dataList_typeTwo_HAF = that.data.dataList_typeTwo_HAF;
+    var delta = that.data.delta;
 
     //万元转换为元
     mortgage_commercial = total_commercial * 10000;
@@ -143,7 +159,7 @@ Page({
 
     //贷款时间转换为月
     time_commercial = duration_commercial * 12;
-    time_HAF = duration_HAFl * 12;
+    time_HAF = duration_HAF * 12;
 
     //获得开始还款的年份
     var startYear = parseInt(payback_time.substr(0, 4), 10);
@@ -378,8 +394,20 @@ Page({
     monthPay_typeTwo_HAF = monthSum_HAF[1];
     delta_HAF = (monthSum_HAF[1] - monthSum_HAF[2]).toFixed(2);
 
+    sum_typeOne = (parseFloat(sum_typeOne_commercial) + parseFloat(sum_typeOne_HAF)).toFixed(2);
+    interestPay_typeOne = (parseFloat(interestPay_typeOne_commercial) + parseFloat(interestPay_typeOne_HAF)).toFixed(2);
+    sum_typeTwo = (parseFloat(sum_typeTwo_commercial) + parseFloat(sum_typeTwo_HAF)).toFixed(2);
+    interestPay_typeTwo = (parseFloat(interestPay_typeTwo_commercial) + parseFloat(interestPay_typeTwo_HAF)).toFixed(2);
+
+    total = parseFloat(total_commercial) + parseFloat(total_HAF);
+    
+    delta = delta_commercial + delta_HAF;
 
     that.setData({
+      sum_typeOne: sum_typeOne,
+      total: total,
+      interestPay_typeOne: interestPay_typeOne,
+
       //等额本息、商业贷款
       monthPay_typeOne_commercial: monthPay_typeOne_commercial,
       sum_typeOne_commercial: sum_typeOne_commercial,
@@ -406,13 +434,11 @@ Page({
       total_commercial: total_commercial,
       duration_commercial: duration_commercial,
       time_commercial: time_commercial,
-      delta_commercial: delta_commercial,
 
       total_HAF: total_HAF,
       duration_HAF: duration_HAF,
       time_HAF: time_HAF,
-      delta_HAF: delta_HAF,
-    });
+    });    
   },
 
 
