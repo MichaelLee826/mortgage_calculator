@@ -4,7 +4,8 @@
     "pages/result/result",
     "pages/result_combination/result_combination",
     "pages/list/list",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/info/info"
   ],
   "window": {
     "backgroundTextStyle": "light",

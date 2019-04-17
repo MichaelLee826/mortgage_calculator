@@ -1,0 +1,13 @@
+/* pages/info/info.wxss */
+
+.title{
+  margin-left: 20rpx
+}
+
+.commercial{
+  margin-left: 20rpx
+}
+
+.HAF{
+  margin-left: 20rpx
+}

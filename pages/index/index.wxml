@@ -78,9 +78,11 @@
       <button class='btn' size='default' type='primary' bindtap='toCompute'>
         开始计算
       </button>
-      <view class='tips'>
-        点击查看更多信息
-      </view>
+      <navigator url="../../pages/info/info">
+        <view class='tips'>
+          点击查看更多信息
+        </view>
+      </navigator>
     </swiper-item>
 
     <!--公积金贷款-->
@@ -155,9 +157,11 @@
         开始计算
       </button>
 
-      <view class='tips'>
-        点击查看更多信息
-      </view>
+      <navigator url="../../pages/info/info">
+        <view class='tips'>
+          点击查看更多信息
+        </view>
+      </navigator>
     </swiper-item>
 
     <!--组合贷款-->
@@ -208,7 +212,7 @@
         </view>
       </view>
 
-<view class='block'>
+      <view class='block'>
         <view class='textview'>公积金贷款年限:</view>
         <picker class='picker_layout' id='combination_HAF_picker_duration' bindchange='bindPickerChange' value='{{combination_HAF_index_duration}}' range='{{mortgage_duration}}'>
           <view class='block_inside'>
@@ -258,9 +262,12 @@
         开始计算
       </button>
 
-      <view class='tips'>
-        点击查看更多信息
-      </view>
+      <navigator url="../../pages/info/info">
+        <view class='tips'>
+          点击查看更多信息
+        </view>
+      </navigator>
+
     </swiper-item>
   </swiper>
 </view>

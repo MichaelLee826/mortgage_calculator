@@ -340,7 +340,7 @@ Page({
         dataList_typeTwo_commercial.push(dataItem_commercial);
       }
     }
-    monthPay_typeTwo_commercial = monthSum_commercial[1];
+    monthPay_typeTwo_commercial = monthSum_commercial[1].toFixed(2);
     delta_commercial = (monthSum_commercial[1] - monthSum_commercial[2]).toFixed(2);
 
     //2.2、公积金贷款部分
@@ -391,7 +391,7 @@ Page({
         dataList_typeTwo_HAF.push(dataItem_HAF);
       }
     }
-    monthPay_typeTwo_HAF = monthSum_HAF[1];
+    monthPay_typeTwo_HAF = monthSum_HAF[1].toFixed(2);
     delta_HAF = (monthSum_HAF[1] - monthSum_HAF[2]).toFixed(2);
 
     sum_typeOne = (parseFloat(sum_typeOne_commercial) + parseFloat(sum_typeOne_HAF)).toFixed(2);
@@ -401,12 +401,15 @@ Page({
 
     total = parseFloat(total_commercial) + parseFloat(total_HAF);
     
-    delta = delta_commercial + delta_HAF;
+    delta = (parseFloat(delta_commercial) + parseFloat(delta_HAF)).toFixed(2);
 
     that.setData({
       sum_typeOne: sum_typeOne,
-      total: total,
+      sum_typeTwo: sum_typeTwo,
       interestPay_typeOne: interestPay_typeOne,
+      interestPay_typeTwo: interestPay_typeTwo,
+      total: total,
+      delta: delta,
 
       //等额本息、商业贷款
       monthPay_typeOne_commercial: monthPay_typeOne_commercial,

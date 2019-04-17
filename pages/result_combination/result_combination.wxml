@@ -7,7 +7,6 @@
 
   <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{winHeight}}rpx">
 
-
     <!--等额本息-->
     <swiper-item>
       <view class='layout1'>
@@ -92,7 +91,7 @@
 
       <view class='textview9'>公积金贷款：</view>
       <view class='layout7'>
-        <view class='textview1'>首月月供：</view>
+        <view class='textview1'>每月月供：</view>
         <view class='layout2'>
           <view class='textview8'>{{monthPay_typeOne_HAF}}</view>
           <view class='textview3'>元</view>
@@ -182,7 +181,7 @@
 
       <view class='textview9'>商业贷款：</view>
       <view class='layout7'>
-        <view class='textview1'>每月月供：</view>
+        <view class='textview1'>首月月供：</view>
         <view class='layout2'>
           <view class='textview8'>{{monthPay_typeTwo_commercial}}</view>
           <view class='textview3'>元</view>
