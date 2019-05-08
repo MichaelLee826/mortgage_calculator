@@ -133,6 +133,7 @@ Page({
     var interestPay_typeOne_HAF = 0;
     var dataList_typeOne_commercial = that.data.dataList_typeOne_commercial;
     var dataList_typeOne_HAF = that.data.dataList_typeOne_HAF;
+    var dataList_typeOne = that.data.dataList_typeOne;
 
     //等额本金
     var monthPay_typeTwo_commercial = 0; //首月月供
@@ -145,6 +146,7 @@ Page({
     var interestPay_typeTwo_HAF = 0;
     var dataList_typeTwo_commercial = that.data.dataList_typeTwo_commercial;
     var dataList_typeTwo_HAF = that.data.dataList_typeTwo_HAF;
+    var dataList_typeTwo = that.data.dataList_typeTwo;
     var delta = that.data.delta;
 
     //万元转换为元
@@ -276,6 +278,50 @@ Page({
       }
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    if(dataList_typeOne_commercial.length > dataList_typeOne_HAF.length){
+      for (let i = 0; i < dataList_typeOne_HAF.length; i++) {
+        var dataItem = {};
+        dataItem["date"] = dataList_typeOne_HAF[i].date;
+        dataItem["monthCapital"] = (dataList_typeOne_commercial[i].monthCapital + dataList_typeOne_HAF[i].monthCapital).toFixed(2);
+        dataItem["monthInterest"] = (dataList_typeOne_commercial[i].monthInterest + dataList_typeOne_HAF[i].monthInterest).toFixed(2);
+        dataItem["monthSum"] = (dataList_typeOne_commercial[i].monthSum + dataList_typeOne_HAF[i].monthSum).toFixed(2);
+        dataList_typeOne.push(dataItem)
+      }
+      for (let j = dataList_typeOne_HAF.length; j < dataList_typeOne_commercial.length; j++){
+        dataList_typeOne = dataList_typeOne_commercial[i];
+      }
+    }
+    else{
+      for (let i = 0; i < dataList_typeOne_commercial.length; i++) {
+        var dataItem = {};
+        dataItem["date"] = dataList_typeOne_commercial[i].date;
+        dataItem["monthCapital"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthCapital) + parseFloat(dataList_typeOne_HAF[i].monthCapital)).toFixed(2);
+        dataItem["monthInterest"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthInterest) + parseFloat(dataList_typeOne_HAF[i].monthInterest)).toFixed(2);
+        dataItem["monthSum"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthSum) + parseFloat(dataList_typeOne_HAF[i].monthSum)).toFixed(2);
+        dataList_typeOne.push(dataItem)
+      }
+      for (let j = dataList_typeOne_commercial.length; j < dataList_typeOne_HAF.length; j++) {
+        dataList_typeOne = dataList_typeOne_HAF[i];
+      }
+    }
+    
+
     //2.等额本金计算方式
     var year_typeTwo_commercial = startYear;
     var month_typeTwo_commercial = startMonth - 1; //如果for循环i从2开始，这里就不需要减1了
@@ -394,6 +440,17 @@ Page({
     monthPay_typeTwo_HAF = monthSum_HAF[1].toFixed(2);
     delta_HAF = (monthSum_HAF[1] - monthSum_HAF[2]).toFixed(2);
 
+    var listLen = 0;
+    if (dataList_typeTwo_commercial.length > dataList_typeTwo_HAF) {
+      listLen = dataList_typeTwo_commercial.length;
+    }
+    else {
+      listLen = dataList_typeTwo_HAF.length;
+    }
+    for (let i = 0; i < listLen; i++) {
+      dataList_typeTwo[i] = dataList_typeTwo_commercial[i] + dataList_typeTwo_HAF[i];
+    }
+
     sum_typeOne = (parseFloat(sum_typeOne_commercial) + parseFloat(sum_typeOne_HAF)).toFixed(2);
     interestPay_typeOne = (parseFloat(interestPay_typeOne_commercial) + parseFloat(interestPay_typeOne_HAF)).toFixed(2);
     sum_typeTwo = (parseFloat(sum_typeTwo_commercial) + parseFloat(sum_typeTwo_HAF)).toFixed(2);
@@ -441,9 +498,28 @@ Page({
       total_HAF: total_HAF,
       duration_HAF: duration_HAF,
       time_HAF: time_HAF,
+
+      //dataList_typeOne: dataList_typeOne,
+      //dataList_typeTwo: dataList_typeTwo,
     });    
   },
 
+  //跳转到月供详情页面
+  showList: function () {
+    var that = this;
+    var currentTab = that.data.currentTab;
+
+    if (currentTab == 0) {
+      wx.navigateTo({
+        url: '/pages/list_combination/list_combination?dataList_combination=' + JSON.stringify(that.data.dataList_typeOne) + '&dataList_commercial=' + JSON.stringify(that.data.dataList_typeOne_commercial) + '&dataList_HAF=' + JSON.stringify(that.data.dataList_typeOne_HAF)
+      })
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/list_combination/list_combination?dataList_combination=' + JSON.stringify(that.data.dataList_typeTwo) + '&dataList_commercial=' + JSON.stringify(that.data.dataList_commercial) + '&dataList_typeTwo_HAF=' + JSON.stringify(that.data.dataList_typeTwo_HAF) 
+      })
+    }
+  },
 
 
   //滑动切换

@@ -1,0 +1,96 @@
+<!--pages/result/result.wxml-->
+<view class="content">
+  <view class="swiper-tab">
+    <view class="swiper-tab-item {{currentTab==0?'active':''}}" data-current="0" bindtap="clickTab">组合贷款</view>
+    <view class="swiper-tab-item {{currentTab==1?'active':''}}" data-current="1" bindtap="clickTab">商业贷款</view>
+    <view class="swiper-tab-item {{currentTab==2?'active':''}}" data-current="2" bindtap="clickTab">公积金贷款</view>
+  </view>
+
+  <swiper current="{{currentTab}}" duration="300" bindchange="swiperTab" style="height:{{winHeight}}rpx">
+    <!--组合贷款-->
+    <swiper-item>
+      <view class="table">
+        <view class="table_head bg-w">
+          <view class="th">期数</view>
+          <view class="th">偿还本金</view>
+          <view class="th ">偿还利息</view>
+          <view class="th ">月供</view>
+        </view>
+<scroll-view class='scroll_view' scroll-y='true' style='height:{{scroll_height}}rpx' scroll-with-animation='true' enable-back-to-top='true'>
+    <block wx:for="{{dataList_combination}}" wx:key="{{index}}">
+      <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.monthCapital}}</view>
+        <view class="td">{{item.monthInterest}}</view>
+        <view class="td">{{item.monthSum}}</view>
+      </view>
+      <view class="tr" wx:else>
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.monthCapital}}</view>
+        <view class="td">{{item.monthInterest}}</view>
+        <view class="td">{{item.monthSum}}</view>
+      </view>
+    </block>
+  </scroll-view>
+      </view>
+    </swiper-item>
+
+    <!--商业贷款部分-->
+    <swiper-item>
+      <view class="table">
+        <view class="table_head bg-w">
+          <view class="th">期数</view>
+          <view class="th">偿还本金</view>
+          <view class="th ">偿还利息</view>
+          <view class="th ">月供</view>
+        </view>
+<scroll-view class='scroll_view' scroll-y='true' style='height:{{scroll_height}}rpx' scroll-with-animation='true' enable-back-to-top='true'>
+    <block wx:for="{{dataList_commercial}}" wx:key="{{index}}">
+      <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.monthCapital}}</view>
+        <view class="td">{{item.monthInterest}}</view>
+        <view class="td">{{item.monthSum}}</view>
+      </view>
+      <view class="tr" wx:else>
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.monthCapital}}</view>
+        <view class="td">{{item.monthInterest}}</view>
+        <view class="td">{{item.monthSum}}</view>
+      </view>
+    </block>
+  </scroll-view>
+
+      </view>
+    </swiper-item>
+
+    <!--公积金贷款部分-->
+    <swiper-item>
+      <view class="table">
+        <view class="table_head bg-w">
+          <view class="th">期数</view>
+          <view class="th">偿还本金</view>
+          <view class="th ">偿还利息</view>
+          <view class="th ">月供</view>
+        </view>
+        <scroll-view class='scroll_view' scroll-y='true' style='height:{{scroll_height}}rpx' scroll-with-animation='true' enable-back-to-top='true'>
+    <block wx:for="{{dataList_HAF}}" wx:key="{{index}}">
+      <view class="tr bg-g" wx:if="{{index % 2 == 0}}">
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.monthCapital}}</view>
+        <view class="td">{{item.monthInterest}}</view>
+        <view class="td">{{item.monthSum}}</view>
+      </view>
+      <view class="tr" wx:else>
+        <view class="td">{{item.date}}</view>
+        <view class="td">{{item.monthCapital}}</view>
+        <view class="td">{{item.monthInterest}}</view>
+        <view class="td">{{item.monthSum}}</view>
+      </view>
+    </block>
+  </scroll-view>
+      </view>
+    </swiper-item>
+
+  </swiper>
+</view>
