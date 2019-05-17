@@ -198,7 +198,9 @@ Page({
     interestPay_typeOne_commercial = interestPay_typeOne_commercial.toFixed(2);
 
     //每个月的还款详情
-    for (let i = 1; i <= time_commercial; i++) {
+    var i = 1;
+    //for (let i = 1; i <= time_commercial; i++) {
+    while (i <= time_commercial) {
       dataItem_commercial = {};
 
       if (month_typeOne_commercial == 12) {
@@ -228,6 +230,7 @@ Page({
         dataItem_commercial["monthSum"] = "¥" + monthSum_commercial[i].toFixed(2);
 
         dataList_typeOne_commercial.push(dataItem_commercial);
+        i++;
       }
     }
 
@@ -245,82 +248,82 @@ Page({
     interestPay_typeOne_HAF = interestPay_typeOne_HAF.toFixed(2);
 
     //每个月的还款详情
-    for (let i = 1; i <= time_HAF; i++) {
+    var j = 1;
+    //for (let i = 1; i <= time_HAF; i++) {
+    while (j <= time_HAF) {
       dataItem_HAF = {};
 
       if (month_typeOne_HAF == 12) {
         year_typeOne_HAF++;
         month_typeOne_HAF = 0;
-        date_HAF[i] = year_typeOne_HAF + "年";
-        dataItem_HAF["date"] = date_HAF[i];
+        date_HAF[j] = year_typeOne_HAF + "年";
+        dataItem_HAF["date"] = date_HAF[j];
         dataItem_HAF["monthCapital"] = "";
         dataItem_HAF["monthInterest"] = "";
         dataItem_HAF["monthSum"] = "";
         dataList_typeOne_HAF.push(dataItem_HAF);
       } else {
         month_typeOne_HAF++;
-        date_HAF[i] = month_typeOne_HAF + "月," + i + "期";
-        dataItem_HAF["date"] = date_HAF[i];
+        date_HAF[j] = month_typeOne_HAF + "月," + j + "期";
+        dataItem_HAF["date"] = date_HAF[j];
 
         //每月应还本金：贷款本金×月利率×(1+月利率)^(还款月序号-1)÷〔(1+月利率)^还款月数-1〕
-        monthCapital_HAF[i] = mortgage_HAF * monthRate_HAF * Math.pow((1 + monthRate_HAF), i - 1) / (Math.pow(1 + monthRate_HAF, time_HAF) - 1);
-        dataItem_HAF["monthCapital"] = "¥" + monthCapital_HAF[i].toFixed(2);
+        monthCapital_HAF[j] = mortgage_HAF * monthRate_HAF * Math.pow((1 + monthRate_HAF), j - 1) / (Math.pow(1 + monthRate_HAF, time_HAF) - 1);
+        dataItem_HAF["monthCapital"] = "¥" + monthCapital_HAF[j].toFixed(2);
 
         //每月应还利息：贷款本金×月利率×〔(1+月利率)^还款月数-(1+月利率)^(还款月序号-1)〕÷〔(1+月利率)^还款月数-1〕
-        monthInterest_HAF[i] = mortgage_HAF * monthRate_HAF * (Math.pow(1 + monthRate_HAF, time_HAF) - Math.pow(1 + monthRate_HAF, i - 1)) / (Math.pow(1 + monthRate_HAF, time_HAF) - 1);
-        dataItem_HAF["monthInterest"] = "¥" + monthInterest_HAF[i].toFixed(2);
+        monthInterest_HAF[j] = mortgage_HAF * monthRate_HAF * (Math.pow(1 + monthRate_HAF, time_HAF) - Math.pow(1 + monthRate_HAF, j - 1)) / (Math.pow(1 + monthRate_HAF, time_HAF) - 1);
+        dataItem_HAF["monthInterest"] = "¥" + monthInterest_HAF[j].toFixed(2);
 
         //月供：贷款本金×月利率×(1＋月利率)＾还款月数〕÷〔(1＋月利率)＾还款月数-1〕
-        monthSum_HAF[i] = mortgage_HAF * monthRate_HAF * Math.pow((1 + monthRate_HAF), time_HAF) / (Math.pow(1 + monthRate_HAF, time_HAF) - 1);
-        dataItem_HAF["monthSum"] = "¥" + monthSum_HAF[i].toFixed(2);
+        monthSum_HAF[j] = mortgage_HAF * monthRate_HAF * Math.pow((1 + monthRate_HAF), time_HAF) / (Math.pow(1 + monthRate_HAF, time_HAF) - 1);
+        dataItem_HAF["monthSum"] = "¥" + monthSum_HAF[j].toFixed(2);
 
         dataList_typeOne_HAF.push(dataItem_HAF);
       }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    if(dataList_typeOne_commercial.length > dataList_typeOne_HAF.length){
+    //合并商业贷款和公积金贷款的每一期数据
+    //商业贷款时间长的情况
+    if (dataList_typeOne_commercial.length > dataList_typeOne_HAF.length) {
       for (let i = 0; i < dataList_typeOne_HAF.length; i++) {
         var dataItem = {};
         dataItem["date"] = dataList_typeOne_HAF[i].date;
-        dataItem["monthCapital"] = (dataList_typeOne_commercial[i].monthCapital + dataList_typeOne_HAF[i].monthCapital).toFixed(2);
-        dataItem["monthInterest"] = (dataList_typeOne_commercial[i].monthInterest + dataList_typeOne_HAF[i].monthInterest).toFixed(2);
-        dataItem["monthSum"] = (dataList_typeOne_commercial[i].monthSum + dataList_typeOne_HAF[i].monthSum).toFixed(2);
+        if (dataItem["date"].indexOf("年") != -1) {
+          dataItem["monthCapital"] = "";
+          dataItem["monthInterest"] = "";
+          dataItem["monthSum"] = "";
+        } else {
+          dataItem["monthCapital"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthCapital.substring(1)) + parseFloat(dataList_typeOne_HAF[i].monthCapital.substring(1))).toFixed(2);
+          dataItem["monthInterest"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthInterest.substring(1)) + parseFloat(dataList_typeOne_HAF[i].monthInterest.substring(1))).toFixed(2);
+          dataItem["monthSum"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthSum.substring(1)) + parseFloat(dataList_typeOne_HAF[i].monthSum.substring(1))).toFixed(2);
+        }
         dataList_typeOne.push(dataItem)
       }
-      for (let j = dataList_typeOne_HAF.length; j < dataList_typeOne_commercial.length; j++){
-        dataList_typeOne = dataList_typeOne_commercial[i];
+      for (let j = dataList_typeOne_HAF.length; j < dataList_typeOne_commercial.length; j++) {
+        dataList_typeOne = dataList_typeOne_commercial[j];
       }
     }
-    else{
+    //公积金贷款时间长（或两者时间相等）的情况
+    else {
       for (let i = 0; i < dataList_typeOne_commercial.length; i++) {
         var dataItem = {};
         dataItem["date"] = dataList_typeOne_commercial[i].date;
-        dataItem["monthCapital"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthCapital) + parseFloat(dataList_typeOne_HAF[i].monthCapital)).toFixed(2);
-        dataItem["monthInterest"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthInterest) + parseFloat(dataList_typeOne_HAF[i].monthInterest)).toFixed(2);
-        dataItem["monthSum"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthSum) + parseFloat(dataList_typeOne_HAF[i].monthSum)).toFixed(2);
+        if (dataItem["date"].indexOf("年") != -1) {
+          dataItem["monthCapital"] = "";
+          dataItem["monthInterest"] = "";
+          dataItem["monthSum"] = "";
+        } else {
+          dataItem["monthCapital"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthCapital.substring(1)) + parseFloat(dataList_typeOne_HAF[i].monthCapital.substring(1))).toFixed(2);
+          dataItem["monthInterest"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthInterest.substring(1)) + parseFloat(dataList_typeOne_HAF[i].monthInterest.substring(1))).toFixed(2);
+          dataItem["monthSum"] = "¥" + (parseFloat(dataList_typeOne_commercial[i].monthSum.substring(1)) + parseFloat(dataList_typeOne_HAF[i].monthSum.substring(1))).toFixed(2);
+        }
         dataList_typeOne.push(dataItem)
       }
       for (let j = dataList_typeOne_commercial.length; j < dataList_typeOne_HAF.length; j++) {
-        dataList_typeOne = dataList_typeOne_HAF[i];
+        dataList_typeOne = dataList_typeOne_HAF[j];
       }
     }
-    
 
     //2.等额本金计算方式
     var year_typeTwo_commercial = startYear;
@@ -440,15 +443,46 @@ Page({
     monthPay_typeTwo_HAF = monthSum_HAF[1].toFixed(2);
     delta_HAF = (monthSum_HAF[1] - monthSum_HAF[2]).toFixed(2);
 
-    var listLen = 0;
-    if (dataList_typeTwo_commercial.length > dataList_typeTwo_HAF) {
-      listLen = dataList_typeTwo_commercial.length;
+    //合并商业贷款和公积金贷款的每一期数据
+    //商业贷款时间长的情况
+    if (dataList_typeTwo_commercial.length > dataList_typeTwo_HAF.length) {
+      for (let i = 0; i < dataList_typeTwo_HAF.length; i++) {
+        var dataItem = {};
+        dataItem["date"] = dataList_typeTwo_HAF[i].date;
+        if (dataItem["date"].indexOf("年") != -1) {
+          dataItem["monthCapital"] = "";
+          dataItem["monthInterest"] = "";
+          dataItem["monthSum"] = "";
+        } else {
+          dataItem["monthCapital"] = "¥" + (parseFloat(dataList_typeTwo_commercial[i].monthCapital.substring(1)) + parseFloat(dataList_typeTwo_HAF[i].monthCapital.substring(1))).toFixed(2);
+          dataItem["monthInterest"] = "¥" + (parseFloat(dataList_typeTwo_commercial[i].monthInterest.substring(1)) + parseFloat(dataList_typeTwo_HAF[i].monthInterest.substring(1))).toFixed(2);
+          dataItem["monthSum"] = "¥" + (parseFloat(dataList_typeTwo_commercial[i].monthSum.substring(1)) + parseFloat(dataList_typeTwo_HAF[i].monthSum.substring(1))).toFixed(2);
+        }
+        dataList_typeTwo.push(dataItem)
+      }
+      for (let j = dataList_typeTwo_HAF.length; j < dataList_typeTwo_commercial.length; j++) {
+        dataList_typeTwo = dataList_typeTwo_commercial[j];
+      }
     }
+    //公积金贷款时间长（或两者时间相等）的情况
     else {
-      listLen = dataList_typeTwo_HAF.length;
-    }
-    for (let i = 0; i < listLen; i++) {
-      dataList_typeTwo[i] = dataList_typeTwo_commercial[i] + dataList_typeTwo_HAF[i];
+      for (let i = 0; i < dataList_typeTwo_commercial.length; i++) {
+        var dataItem = {};
+        dataItem["date"] = dataList_typeTwo_commercial[i].date;
+        if (dataItem["date"].indexOf("年") != -1) {
+          dataItem["monthCapital"] = "";
+          dataItem["monthInterest"] = "";
+          dataItem["monthSum"] = "";
+        } else {
+          dataItem["monthCapital"] = "¥" + (parseFloat(dataList_typeTwo_commercial[i].monthCapital.substring(1)) + parseFloat(dataList_typeTwo_HAF[i].monthCapital.substring(1))).toFixed(2);
+          dataItem["monthInterest"] = "¥" + (parseFloat(dataList_typeTwo_commercial[i].monthInterest.substring(1)) + parseFloat(dataList_typeTwo_HAF[i].monthInterest.substring(1))).toFixed(2);
+          dataItem["monthSum"] = "¥" + (parseFloat(dataList_typeTwo_commercial[i].monthSum.substring(1)) + parseFloat(dataList_typeTwo_HAF[i].monthSum.substring(1))).toFixed(2);
+        }
+        dataList_typeTwo.push(dataItem)
+      }
+      for (let j = dataList_typeTwo_commercial.length; j < dataList_typeTwo_HAF.length; j++) {
+        dataList_typeTwo = dataList_typeTwo_HAF[j];
+      }
     }
 
     sum_typeOne = (parseFloat(sum_typeOne_commercial) + parseFloat(sum_typeOne_HAF)).toFixed(2);
@@ -457,7 +491,7 @@ Page({
     interestPay_typeTwo = (parseFloat(interestPay_typeTwo_commercial) + parseFloat(interestPay_typeTwo_HAF)).toFixed(2);
 
     total = parseFloat(total_commercial) + parseFloat(total_HAF);
-    
+
     delta = (parseFloat(delta_commercial) + parseFloat(delta_HAF)).toFixed(2);
 
     that.setData({
@@ -489,7 +523,7 @@ Page({
       sum_typeTwo_HAF: sum_typeTwo_HAF,
       interestPay_typeTwo_HAF: interestPay_typeTwo_HAF,
       delta_HAF: delta_HAF,
-      
+
 
       total_commercial: total_commercial,
       duration_commercial: duration_commercial,
@@ -501,11 +535,11 @@ Page({
 
       //dataList_typeOne: dataList_typeOne,
       //dataList_typeTwo: dataList_typeTwo,
-    });    
+    });
   },
 
   //跳转到月供详情页面
-  showList: function () {
+  showList: function() {
     var that = this;
     var currentTab = that.data.currentTab;
 
@@ -513,10 +547,9 @@ Page({
       wx.navigateTo({
         url: '/pages/list_combination/list_combination?dataList_combination=' + JSON.stringify(that.data.dataList_typeOne) + '&dataList_commercial=' + JSON.stringify(that.data.dataList_typeOne_commercial) + '&dataList_HAF=' + JSON.stringify(that.data.dataList_typeOne_HAF)
       })
-    }
-    else {
+    } else {
       wx.navigateTo({
-        url: '/pages/list_combination/list_combination?dataList_combination=' + JSON.stringify(that.data.dataList_typeTwo) + '&dataList_commercial=' + JSON.stringify(that.data.dataList_commercial) + '&dataList_typeTwo_HAF=' + JSON.stringify(that.data.dataList_typeTwo_HAF) 
+        url: '/pages/list_combination/list_combination?dataList_combination=' + JSON.stringify(that.data.dataList_typeTwo) + '&dataList_commercial=' + JSON.stringify(that.data.dataList_typeTwo_commercial) + '&dataList_HAF=' + JSON.stringify(that.data.dataList_typeTwo_HAF)
       })
     }
   },

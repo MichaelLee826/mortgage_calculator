@@ -132,9 +132,9 @@ Page({
     interestPay_typeOne = interestPay_typeOne.toFixed(2);
 
     //每个月的还款详情
-    for (let i = 1; i <= time; i++) {
+    var i = 1;
+    while (i <= time) {
       dataItem = {};
-
       if (month_typeOne == 12) {
         year_typeOne++;
         month_typeOne = 0;
@@ -162,8 +162,11 @@ Page({
         dataItem["monthSum"] = "¥" + monthSum[i].toFixed(2);
 
         dataList_typeOne.push(dataItem);
+        i++;
       }
     }
+
+    dataItem = {};
 
     //等额本金计算方式
     var year_typeTwo = startYear;
@@ -186,42 +189,44 @@ Page({
     //每个月的还款详情
     let paid = 0;
     let delta = 0;
-    for (let i = 1; i <= time; i++) {
+    var j = 1;
+    while (j <= time) {
       dataItem = {};
 
       if (month_typeTwo == 12) {
         year_typeTwo++;
         month_typeTwo = 0;
-        date[i] = year_typeTwo + "年";
-        dataItem["date"] = date[i];
+        date[j] = year_typeTwo + "年";
+        dataItem["date"] = date[j];
         dataItem["monthCapital"] = "";
         dataItem["monthInterest"] = "";
         dataItem["monthSum"] = "";
         dataList_typeTwo.push(dataItem);
       } else {
         month_typeTwo++;
-        date[i] = month_typeTwo + "月," + i + "期";
-        dataItem["date"] = date[i];
+        date[j] = month_typeTwo + "月," + j + "期";
+        dataItem["date"] = date[j];
 
         //每月应还本金：贷款本金÷还款月数
-        monthCapital[i] = mortgage / time;
-        dataItem["monthCapital"] = "¥" + monthCapital[i].toFixed(2);
+        monthCapital[j] = mortgage / time;
+        dataItem["monthCapital"] = "¥" + monthCapital[j].toFixed(2);
 
         //每月应还利息：剩余本金×月利率=(贷款本金-已归还本金累计额)×月利率
-        monthInterest[i] = (mortgage - paid) * monthRate;
-        dataItem["monthInterest"] = "¥" + monthInterest[i].toFixed(2);
+        monthInterest[j] = (mortgage - paid) * monthRate;
+        dataItem["monthInterest"] = "¥" + monthInterest[j].toFixed(2);
 
         //月供：(贷款本金÷还款月数)+(贷款本金-已归还本金累计额)×月利率
-        monthSum[i] = (mortgage / time) + (mortgage - paid) * monthRate;
-        dataItem["monthSum"] = "¥" + monthSum[i].toFixed(2);
+        monthSum[j] = (mortgage / time) + (mortgage - paid) * monthRate;
+        dataItem["monthSum"] = "¥" + monthSum[j].toFixed(2);
 
         //已归还本金累计额
         paid = paid + mortgage / time;
 
         dataList_typeTwo.push(dataItem);
+        j++;
       }
     }
-    monthPay_typeTwo = monthSum[1];
+    monthPay_typeTwo = monthSum[1].toFixed(2);
     delta = (monthSum[1] - monthSum[2]).toFixed(2);
 
     that.setData({
@@ -245,13 +250,12 @@ Page({
   showList: function() {
     var that = this;
     var currentTab = that.data.currentTab;
-    
-    if (currentTab == 0){
+
+    if (currentTab == 0) {
       wx.navigateTo({
         url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList_typeOne)
       })
-    }
-    else {
+    } else {
       wx.navigateTo({
         url: '/pages/list/list?dataList=' + JSON.stringify(that.data.dataList_typeTwo)
       })
