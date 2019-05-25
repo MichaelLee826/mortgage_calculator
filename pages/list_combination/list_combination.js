@@ -20,6 +20,7 @@ Page({
 
     var that = this;
     var height = 0; //屏幕高度
+    var scroll_height = 0;
 
     //swiper高度自适应
     wx.getSystemInfo({
@@ -28,6 +29,7 @@ Page({
           clientWidth = res.windowWidth,
           rpxR = 750 / clientWidth;
         height = clientHeight * rpxR - 88; //88是swiper-tab的高度
+        scroll_height = height - 100;
       }
     });
 
@@ -42,7 +44,7 @@ Page({
       dataList_commercial: dataList_commercial,
       dataList_HAF: dataList_HAF,
       winHeight: height,
-      scroll_height: height,
+      scroll_height: scroll_height,
     });
   },
 
