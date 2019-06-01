@@ -67,6 +67,16 @@ swiper-item{
   width: 50%;
 }
 
+.block_way{
+  width: 100%;
+  height: 190rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+  margin-bottom: 5rpx;
+}
+
 .block_inside{
   display:  flex;
   justify-content: flex-end;
@@ -107,6 +117,32 @@ swiper-item{
 .inputtextview{
   width: 25%;
   font-size: 12pt;
+  color: #000000;
+}
+
+.block_inside_alpha_way{
+  width:  80%;
+  display:  flex;
+  justify-content: flex-end;
+  align-items:  center;
+  height:  100%;
+  min-height:  10px;  
+}
+
+.inputview_way{
+  width: 60%;
+  justify-content: flex-end;
+  font-size: 12pt;
+  text-align: right;
+  color: #000000;
+  
+}
+
+.inputtextview_way{
+  width: 40%;
+  font-size: 12pt;
+  text-align: start;
+  padding-left: 15rpx;
   color: #000000;
 }
 

@@ -26,6 +26,8 @@ Page({
     commercial_option: "等额本息",
     commercial_duration: 20,
     commercial_way: "贷款金额",
+    commercial_total_show: true,
+    commercial_area_show: false,
     commercial_total: -1,
     commercial_interest: 4.90,
     commercial_payback_time: "",
@@ -42,6 +44,8 @@ Page({
     HAF_option: "等额本息",
     HAF_duration: 20,
     HAF_way: "贷款金额",
+    HAF_total_show: true,
+    HAF_area_show: false,
     HAF_total: -1,
     HAF_interest: 3.25,
     HAF_payback_time: "",
@@ -135,7 +139,7 @@ Page({
         });
         break;
 
-      //组合贷款 贷款方式
+        //组合贷款 贷款方式
       case "combination_picker_options":
         this.setData({
           combination_index_options: val,
@@ -159,15 +163,15 @@ Page({
         });
         break;
 
-      //组合贷款 商业贷款年限
+        //组合贷款 商业贷款年限
       case "combination_comm_picker_duration":
         this.setData({
-            combination_comm_index_duration: val,
-            combination_comm_duration: that.data.mortgage_duration[val],
+          combination_comm_index_duration: val,
+          combination_comm_duration: that.data.mortgage_duration[val],
         });
         break;
 
-      //组合贷款 公积金贷款年限
+        //组合贷款 公积金贷款年限
       case "combination_HAF_picker_duration":
         this.setData({
           combination_HAF_index_duration: val,
@@ -177,17 +181,43 @@ Page({
 
         //商业贷款 计算方式
       case "commercial_picker_ways":
+        var commercial_total_show;
+        var commercial_area_show;
+
+        if (val == 0) {
+          commercial_total_show = true;
+          commercial_area_show = false;
+        } else {
+          commercial_total_show = false;
+          commercial_area_show = true;
+        }
+
         this.setData({
           commercial_index_ways: val,
           commercial_way: that.data.mortgage_ways[val],
+          commercial_total_show: commercial_total_show,
+          commercial_area_show: commercial_area_show,
         });
         break;
 
         //公积金贷款 计算方式
       case "HAF_picker_ways":
+        var HAF_total_show;
+        var HAF_area_show;
+
+        if (val == 0) {
+          HAF_total_show = true;
+          HAF_area_show = false;
+        } else {
+          HAF_total_show = false;
+          HAF_area_show = true;
+        }
+
         this.setData({
           HAF_index_ways: val,
           HAF_way: that.data.mortgage_ways[val],
+          HAF_total_show: HAF_total_show,
+          HAF_area_show: HAF_area_show,
         });
         break;
 
@@ -621,8 +651,7 @@ Page({
       //if判断条件的写法是根据几个测试用例推出来的
       else if (!(reg_int.test(combination_comm_total) ^ reg_float.test(combination_comm_total))) {
         that.showAlert("请填写正确格式的贷款金额！");
-      }
-      else if (!(reg_int.test(combination_HAF_total) ^ reg_float.test(combination_HAF_total))) {
+      } else if (!(reg_int.test(combination_HAF_total) ^ reg_float.test(combination_HAF_total))) {
         that.showAlert("请填写正确格式的贷款金额！");
       }
 
@@ -676,5 +705,5 @@ Page({
     }
   },
 
-  
+
 })

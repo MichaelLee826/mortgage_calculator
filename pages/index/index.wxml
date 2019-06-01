@@ -40,12 +40,32 @@
         </picker>
       </view>
 
-      <view class='block'>
+      <view class='block' wx:if='{{commercial_total_show}}'>
         <view class='textview'>贷款金额:</view>
         <view class='block_inside_alpha'>
-          <input class='inputview' id='commercial_input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+          <input class='inputview_way' id='commercial_input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>万元</view>
         </view>
+      </view>
+
+      <view class='block_way' wx:if='{{commercial_area_show}}'>
+
+        <view class='block'>
+          <view class='textview'>单价:</view>
+          <view class='block_inside_alpha_way'>
+            <input class='inputview_way' id='commercial_input_price' placeholder='请输入单价' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+            <view class='inputtextview_way'>元/平方米</view>
+          </view>
+        </view>
+
+        <view class='block'>
+          <view class='textview'>面积:</view>
+          <view class='block_inside_alpha_way'>
+            <input class='inputview_way' id='commercial_input_area' placeholder='请输入面积' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+            <view class='inputtextview_way'>平方米</view>
+          </view>
+        </view>
+
       </view>
 
       <view class='block'>
@@ -117,13 +137,33 @@
         </picker>
       </view>
 
-      <view class='block'>
+      <view class='block' wx:if='{{HAF_total_show}}'>
         <view class='textview'>贷款金额:</view>
         <view class='block_inside_alpha'>
           <input class='inputview' id='HAF_input_total' placeholder='请输入贷款总额' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
           <view class='inputtextview'>万元</view>
         </view>
       </view>
+
+      <view class='block_way' wx:if='{{HAF_area_show}}'>
+          
+		  <view class='block'>
+            <view class='textview'>单价:</view>
+            <view class='block_inside_alpha_way'>
+              <input class='inputview_way' id='HAF_input_price' placeholder='请输入单价' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+              <view class='inputtextview_way'>元/平方米</view>
+            </view>
+          </view>
+
+          <view class='block'>
+            <view class='textview'>面积:</view>
+            <view class='block_inside_alpha_way'>
+              <input class='inputview_way' id='HAF_input_area' placeholder='请输入面积' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+              <view class='inputtextview_way'>平方米</view>
+            </view>
+          </view>
+		  
+        </view>
 
       <view class='block'>
         <view class='textview'>利率选择:</view>
