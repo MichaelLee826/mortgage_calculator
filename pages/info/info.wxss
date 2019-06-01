@@ -1,13 +1,42 @@
 /* pages/info/info.wxss */
 
 .title{
-  margin-left: 20rpx
+  margin-top: 30rpx;
+  height: 60rpx;
+  font-size: 14pt;
+  font: bolder;
+  text-align: center;
+  color: #09bb07;
+  border-bottom: 5rpx solid #09bb07;
 }
 
 .commercial{
-  margin-left: 20rpx
+  margin-top: 30rpx;
+  padding: 20rpx;
 }
 
 .HAF{
-  margin-left: 20rpx
+  margin-top: 50rpx;
+  padding: 20rpx;
+}
+
+.text_title{
+  margin-top: 10rpx;
+  font-size: 13pt;
+  color: #09bb07;
+}
+
+.text{
+  margin-top: 10rpx;
+  margin-left: 30rpx;
+  font-size: 12pt;
+  color: #09bb07;
+}
+
+.btn{
+  width: 80%;
+  margin-top: 50rpx;
+  vertical-align: middle; 
+  line-height: 40px;
+  text-align: center
 }

@@ -1,17 +1,22 @@
 <!--pages/info/info.wxml-->
-<text class='title'>
-央行2015年10月24日最新基准利率:
-</text>
 
-<text class='commercial'>
-商业贷款基准利率：
-1年以内(含1年)：	4.35%
-1年到5年(含5年)：	4.75%
-5年以上：	4.90%
-</text>
+<view class='title'>
+  央行2015年10月24日最新基准利率
+</view>
 
-<text class=''>
-公积金贷款基准利率：
-5年以内(含5年)	2.75%
-5年以上	3.25%
-</text>
+<view class='commercial'>
+  <view class='text_title'>1、商业贷款基准利率：</view>
+  <view class='text'>1年以内(含1年)： 4.35%</view>
+  <view class='text'>1年到5年(含5年)： 4.75%</view>
+  <view class='text'>5年以上： 4.90%</view>
+</view>
+
+<view class='HAF'>
+  <view class='text_title'>2、公积金贷款基准利率：</view>
+  <view class='text'>5年以内(含5年)： 2.75%</view>
+  <view class='text'> 5年以上：3.25%</view>
+</view>
+
+<button class='btn' size='default' type='primary' bindtap='toIndex'>
+  返回首页
+</button>

@@ -69,7 +69,7 @@ swiper-item{
 
 .block_way{
   width: 100%;
-  height: 190rpx;
+  height: 285rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,5 +157,8 @@ swiper-item{
 .tips{
   color: #576b95;
   font-size: 11pt;
-  margin-top: 40rpx;
+  display: flex;
+  align-items:center;
+  justify-content: center;
+  height: 100rpx;
 }

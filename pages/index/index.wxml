@@ -66,6 +66,16 @@
           </view>
         </view>
 
+        <view class='block'>
+          <view class='textview'>首付比例:</view>
+          <picker class='picker_layout' id='commercial_picker_ratio' bindchange='bindPickerChange' value='{{commercial_index_ratio}}' range='{{mortgage_ratio}}'>
+            <view class='block_inside'>
+              <view class='text'>{{mortgage_ratio[commercial_index_ratio]}}</view>
+              <image class='arrow' src="../../pics/forward-100.png"></image>
+            </view>
+          </picker>
+        </view>
+
       </view>
 
       <view class='block'>
@@ -98,7 +108,7 @@
       <button class='btn' size='default' type='primary' bindtap='toCompute'>
         开始计算
       </button>
-      <navigator url="../../pages/info/info">
+      <navigator hover-class="none" url="../../pages/info/info">
         <view class='tips'>
           点击查看更多信息
         </view>
@@ -146,24 +156,34 @@
       </view>
 
       <view class='block_way' wx:if='{{HAF_area_show}}'>
-          
-		  <view class='block'>
-            <view class='textview'>单价:</view>
-            <view class='block_inside_alpha_way'>
-              <input class='inputview_way' id='HAF_input_price' placeholder='请输入单价' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
-              <view class='inputtextview_way'>元/平方米</view>
-            </view>
-          </view>
 
-          <view class='block'>
-            <view class='textview'>面积:</view>
-            <view class='block_inside_alpha_way'>
-              <input class='inputview_way' id='HAF_input_area' placeholder='请输入面积' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
-              <view class='inputtextview_way'>平方米</view>
-            </view>
+        <view class='block'>
+          <view class='textview'>单价:</view>
+          <view class='block_inside_alpha_way'>
+            <input class='inputview_way' id='HAF_input_price' placeholder='请输入单价' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+            <view class='inputtextview_way'>元/平方米</view>
           </view>
-		  
         </view>
+
+        <view class='block'>
+          <view class='textview'>面积:</view>
+          <view class='block_inside_alpha_way'>
+            <input class='inputview_way' id='HAF_input_area' placeholder='请输入面积' placeholder-style='color:#ccc' bindinput="inputTyping" type="digit"></input>
+            <view class='inputtextview_way'>平方米</view>
+          </view>
+        </view>
+
+        <view class='block'>
+          <view class='textview'>首付比例:</view>
+          <picker class='picker_layout' id='HAF_picker_ratio' bindchange='bindPickerChange' value='{{HAF_index_ratio}}' range='{{mortgage_ratio}}'>
+            <view class='block_inside'>
+              <view class='text'>{{mortgage_ratio[HAF_index_ratio]}}</view>
+              <image class='arrow' src="../../pics/forward-100.png"></image>
+            </view>
+          </picker>
+        </view>
+
+      </view>
 
       <view class='block'>
         <view class='textview'>利率选择:</view>
@@ -197,7 +217,7 @@
         开始计算
       </button>
 
-      <navigator url="../../pages/info/info">
+      <navigator hover-class="none" url="../../pages/info/info">
         <view class='tips'>
           点击查看更多信息
         </view>
@@ -302,7 +322,7 @@
         开始计算
       </button>
 
-      <navigator url="../../pages/info/info">
+      <navigator hover-class="none" url="../../pages/info/info">
         <view class='tips'>
           点击查看更多信息
         </view>
