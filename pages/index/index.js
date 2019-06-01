@@ -135,6 +135,14 @@ Page({
         });
         break;
 
+      //组合贷款 贷款方式
+      case "combination_picker_options":
+        this.setData({
+          combination_index_options: val,
+          combination_option: that.data.mortgage_options[val],
+        });
+        break;
+
         //商业贷款 贷款年限
       case "commercial_picker_duration":
         this.setData({

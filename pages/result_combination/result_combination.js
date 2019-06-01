@@ -287,9 +287,9 @@ Page({
 
     //合并商业贷款和公积金贷款的每一期数据
     //商业贷款时间长的情况
-    var dataItem_typeOne = {};
     if (dataList_typeOne_commercial.length > dataList_typeOne_HAF.length) {
       for (let i = 0; i < dataList_typeOne_HAF.length; i++) {
+        var dataItem_typeOne = {};
         dataItem_typeOne["date"] = dataList_typeOne_HAF[i].date;
         if (dataItem_typeOne["date"].indexOf("年") != -1) {
           dataItem_typeOne["monthCapital"] = "";
@@ -309,6 +309,7 @@ Page({
     //公积金贷款时间长（或两者时间相等）的情况
     else {
       for (let i = 0; i < dataList_typeOne_commercial.length; i++) {
+        var dataItem_typeOne = {};
         dataItem_typeOne["date"] = dataList_typeOne_commercial[i].date;
         if (dataItem_typeOne["date"].indexOf("年") != -1) {
           dataItem_typeOne["monthCapital"] = "";
@@ -450,9 +451,9 @@ Page({
 
     //合并商业贷款和公积金贷款的每一期数据
     //商业贷款时间长的情况
-    var dataItem_typeTwo = {};
     if (dataList_typeTwo_commercial.length > dataList_typeTwo_HAF.length) {
       for (let i = 0; i < dataList_typeTwo_HAF.length; i++) {
+        var dataItem_typeTwo = {};
         dataItem_typeTwo["date"] = dataList_typeTwo_HAF[i].date;
         if (dataItem_typeTwo["date"].indexOf("年") != -1) {
           dataItem_typeTwo["monthCapital"] = "";
@@ -472,6 +473,7 @@ Page({
     //公积金贷款时间长（或两者时间相等）的情况
     else {
       for (let i = 0; i < dataList_typeTwo_commercial.length; i++) {
+        var dataItem_typeTwo = {};
         dataItem_typeTwo["date"] = dataList_typeTwo_commercial[i].date;
         if (dataItem_typeTwo["date"].indexOf("年") != -1) {
           dataItem_typeTwo["monthCapital"] = "";
